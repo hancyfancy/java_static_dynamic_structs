@@ -1,5 +1,9 @@
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
+        Random random = new Random();
+
         System.out.println("--------------------Items");
 
         Item<?> myByte = new Item((byte)10);
@@ -208,7 +212,6 @@ public class Main {
 
         DynamicItemStore<?> dynamicStringStore = new DynamicItemStore<String>();
         dynamicStringStore.setItem(new Item((String)"Fellow"));
-        //System.out.println("This Index: ".concat(String.valueOf(dynamicStringStore.getIndex(new Item((String)"Fellow")))));
         dynamicStringStore.setItem(new Item((String)"Mellow"));
         dynamicStringStore.setItem(new Item((String)"Yellow"));
         dynamicStringStore.setItem(new Item((String)"Bellow"));
@@ -221,6 +224,16 @@ public class Main {
         dynamicObjectStore.setItem(new Item(new Exception()));
         dynamicObjectStore.setItem(new Item(new SecurityManager()));
         System.out.print(dynamicObjectStore);
+        System.out.print("\n");
+
+        System.out.println("--------------------Dynamic sorted item store");
+
+        DynamicItemStore<?> dynamicSortedIntegerStore = new DynamicItemStore<Integer>();
+        for (int i = 0; i < 7; i++) {
+            dynamicSortedIntegerStore.setItem(new Item((int)random.nextInt(10000)));
+        }
+        dynamicSortedIntegerStore.multisort(false);
+        System.out.print(dynamicSortedIntegerStore);
         System.out.print("\n");
 
         System.out.println("--------------------Dynamic key value store");
