@@ -35,7 +35,6 @@ public class StaticItemStore<T> extends AbstractItemStore<T> implements IStorabl
     public void setItem(Item<?> newItem) {
         Item<?>[] newItems = null;
         int currentIndex = getCurrentIndex();
-        System.out.println("Current Index: ".concat(String.valueOf(getCurrentIndex())));
         int length = getLength();
         if (currentIndex < length) {
             Item<?>[] items = getItems();
