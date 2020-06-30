@@ -257,7 +257,7 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         System.out.print("]\n");*/
         return (Item<T>[])sorted;
     }
-    public void multisort(boolean createSortOrder) {
+    public void sort(boolean createSortOrder) {
         Item<?>[] unsortedItems = getItems();
         int primeDivisions = calculatePrimeDivisions(unsortedItems);
         int divisor = unsortedItems.length/primeDivisions;
