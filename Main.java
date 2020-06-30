@@ -232,7 +232,7 @@ public class Main {
         for (int i = 0; i < 7; i++) {
             dynamicSortedIntegerStore.setItem(new Item((int)random.nextInt(10000)));
         }
-        dynamicSortedIntegerStore.multisort(false);
+        dynamicSortedIntegerStore.sort(false);
         System.out.print(dynamicSortedIntegerStore);
         System.out.print("\n");
 
