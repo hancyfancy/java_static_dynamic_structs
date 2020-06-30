@@ -11,5 +11,5 @@ interface ISortable<T> {
     public Item<T>[][] getSortOrder(Item<?>[][] sortedSubarrays, int numberOfDivisions, int divisor);
     public Item<T>[] subsort(Item<?>[] firstSortOrderLevel, Item<?>[] secondSortOrderLevel);
     public Item<T>[] sortTruncate(Item<?>[][] sortOrder, int numberOfDivisions, int divisor);
-    public void multisort(boolean createSortOrder);
+    public void sort(boolean createSortOrder);
 }
