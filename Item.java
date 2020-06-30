@@ -1,4 +1,3 @@
-/* To be used with primitive types, not objects */
 public class Item<T> {
     private T content;
     public Item(T newContent) {
@@ -16,6 +15,9 @@ public class Item<T> {
         String thisContent = String.valueOf(getContent());
         String contentToCompare = String.valueOf((T)compareContent);
         return thisContent.equals(contentToCompare);
+    }
+    public int toInt() {
+        return Integer.valueOf(String.valueOf(getContent())).intValue();
     }
     public String toString() {
         return getContent().toString();
