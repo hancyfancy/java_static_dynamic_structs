@@ -43,6 +43,25 @@ public class DynamicKeyValueStore<K,V> {
         this.setKeys(keys);
         this.setValues(values);
     }
+    public void sort(boolean createSortOrder) {
+        DynamicItemStore<?> originalKeys = new DynamicItemStore<K>();
+        DynamicItemStore<?> keys = getKeys();
+        for (int i = 0; i < keys.getItems().length; i++) {
+            originalKeys.setItem(new Item(keys.getItem(i)));
+        }
+        keys.sort(createSortOrder);
+        int[] sortedIndices = new int[keys.getItems().length];
+        for (int i = 0; i < keys.getItems().length; i++) {
+            sortedIndices[i] = originalKeys.getIndex(keys.getItem(i));
+        }
+        DynamicItemStore<?> sortedValues = new DynamicItemStore<V>();
+        DynamicItemStore<?> values = getValues();
+        for (int j = 0; j < sortedIndices.length; j++) {
+            sortedValues.setItem(values.getItem(sortedIndices[j]));
+        }
+        this.setKeys(keys);
+        this.setValues(sortedValues);
+    }
     public String toString() {
         String output = "";
         Item<?>[] keyItems = getKeys().getItems();
