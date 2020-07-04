@@ -236,6 +236,24 @@ public class Main {
         System.out.print(dynamicSortedIntegerStore);
         System.out.print("\n");
 
+        System.out.println("--------------------Dynamic unique item store");
+        
+        DynamicUniqueItemStore<?> dynamicUniqueIntegerStore = new DynamicUniqueItemStore<Integer>();
+        dynamicUniqueIntegerStore.setItem(new Item((int)1));
+        dynamicUniqueIntegerStore.setItem(new Item((int)2));
+        dynamicUniqueIntegerStore.setItem(new Item((int)1));
+        dynamicUniqueIntegerStore.setItem(new Item((int)3));
+        System.out.print(dynamicUniqueIntegerStore);
+        System.out.print("\n");
+
+        DynamicUniqueItemStore<?> dynamicUniqueStringStore = new DynamicUniqueItemStore<String>();
+        dynamicUniqueStringStore.setItem(new Item((String)"a"));
+        dynamicUniqueStringStore.setItem(new Item((String)"b"));
+        dynamicUniqueStringStore.setItem(new Item((String)"a"));
+        dynamicUniqueStringStore.setItem(new Item((String)"c"));
+        System.out.print(dynamicUniqueStringStore);
+        System.out.print("\n");
+
         System.out.println("--------------------Dynamic key value store");
     
         //DynamicKeyValueStore<?,?> dynamicKeyValueStore = new DynamicKeyValueStore<byte,int>(); //unexpected type
