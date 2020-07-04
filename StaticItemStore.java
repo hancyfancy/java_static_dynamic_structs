@@ -11,7 +11,7 @@ public class StaticItemStore<T> extends AbstractItemStore<T> implements IStorabl
         int index = -1;
         Item<?>[] items = getItems();
         for (int i = 0; i < getLength(); i++) {
-            if (items[i] == item) {
+            if (items[i].equals(item)) {
                 index = i;
                 break;
             }
