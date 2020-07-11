@@ -90,7 +90,7 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         }
         for (int i = 0; i < maxLength; i++) {
             if (((int)firstString.charAt(i)) < ((int)secondString.charAt(i))) {
-                if (isNumericString(firstString) && isNumericString(secondString)) {
+                if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
                     if (firstString.length() > secondString.length()) {
                         minString = secondString;
                     } else {
@@ -101,7 +101,7 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
                 }
                 break;
             } else if (((int)secondString.charAt(i)) < ((int)firstString.charAt(i))) {
-                if (isNumericString(firstString) && isNumericString(secondString)) {
+                if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
                     if (secondString.length() > firstString.length()) {
                         minString = firstString;
                     } else {
@@ -130,7 +130,7 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         }
         for (int i = 0; i < maxLength; i++) {
             if (((int)firstString.charAt(i)) > ((int)secondString.charAt(i))) {
-                if (isNumericString(firstString) && isNumericString(secondString)) {
+                if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
                     if (firstString.length() < secondString.length()) {
                         maxString = secondString;
                     } else {
@@ -141,7 +141,7 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
                 }
                 break;
             } else if (((int)secondString.charAt(i)) > ((int)firstString.charAt(i))) {
-                if (isNumericString(firstString) && isNumericString(secondString)) {
+                if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
                     if (secondString.length() > firstString.length()) {
                         maxString = firstString;
                     } else {
@@ -319,15 +319,15 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
     }
     protected void sort(boolean createSortOrder) {
         Item<?>[] unsortedItems = getItems();
-        int primeDivisions = calculatePrimeDivisions(unsortedItems);
+        int primeDivisions = this.calculatePrimeDivisions(unsortedItems);
         int divisor = unsortedItems.length/primeDivisions;
-        Item<?>[][] sortedSubarrays = getSortedSubarrays(unsortedItems, primeDivisions, divisor);
+        Item<?>[][] sortedSubarrays = this.getSortedSubarrays(unsortedItems, primeDivisions, divisor);
         Item<?>[] allSorted = null;
         if (createSortOrder) {
-            Item<?>[][] sortOrder = getSortOrder(sortedSubarrays, primeDivisions, divisor);
-            allSorted = sortTruncate(sortOrder, primeDivisions, divisor);
+            Item<?>[][] sortOrder = this.getSortOrder(sortedSubarrays, primeDivisions, divisor);
+            allSorted = this.sortTruncate(sortOrder, primeDivisions, divisor);
         } else {
-            allSorted = sortTruncate(sortedSubarrays, primeDivisions, divisor);
+            allSorted = this.sortTruncate(sortedSubarrays, primeDivisions, divisor);
         }
         setItems(allSorted);
     }
