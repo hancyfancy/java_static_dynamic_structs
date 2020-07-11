@@ -19,7 +19,20 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
     protected void setItems(Item<?>[] newItems) {
         this.items = newItems;
     }
-    public boolean isPrimeNumber(int num) {
+    private boolean isNumericString(String stringToBeChecked) {
+        boolean isNumeric = true;
+        if (stringToBeChecked != null && stringToBeChecked.length() > 0) {
+            for (char c : stringToBeChecked.toCharArray()) {
+                if (!Character.isDigit(c)) {
+                    isNumeric = false;
+                }
+            }
+        } else {
+            isNumeric = false;
+        }
+        return isNumeric;
+    }
+    private boolean isPrimeNumber(int num) {
         boolean flag = true;
         for(int i = 2; i <= num/2; ++i) {
             if(num % i == 0) {
@@ -29,7 +42,7 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         }
         return flag;
     }
-    public int[] generatePrimeNumbers(int n) {
+    private int[] generatePrimeNumbers(int n) {
         int[] primeNumbers = null;
         if (n <= 1) {
             primeNumbers = new int[]{1};
@@ -53,7 +66,7 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         }
         return primeNumbers;
     }
-    public int calculatePrimeDivisions(Item<?>[] unsortedItems) {
+    private int calculatePrimeDivisions(Item<?>[] unsortedItems) {
         int unsortedItemsLength = unsortedItems.length;
         int[] primeNumbers = generatePrimeNumbers(unsortedItemsLength/2);
         int requiredPrime = -1;
@@ -66,31 +79,117 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         }
         return (requiredPrime == -1 ? 1 : requiredPrime);
     }
-    public int linearSearchMin(Item<?>[] array) {
-        int min = Integer.MAX_VALUE;
+    private String minString(String firstString, String secondString) {
+        String minString = null;
+        int counter = 0;
+        int maxLength = -1;
+        if (firstString.length() >= secondString.length()) {
+            maxLength = firstString.length();
+        } else if (secondString.length() > firstString.length()) {
+            maxLength = secondString.length();
+        }
+        for (int i = 0; i < maxLength; i++) {
+            if (((int)firstString.charAt(i)) < ((int)secondString.charAt(i))) {
+                if (isNumericString(firstString) && isNumericString(secondString)) {
+                    if (firstString.length() > secondString.length()) {
+                        minString = secondString;
+                    } else {
+                        minString = firstString;
+                    }
+                } else {
+                    minString = firstString;
+                }
+                break;
+            } else if (((int)secondString.charAt(i)) < ((int)firstString.charAt(i))) {
+                if (isNumericString(firstString) && isNumericString(secondString)) {
+                    if (secondString.length() > firstString.length()) {
+                        minString = firstString;
+                    } else {
+                        minString = secondString;
+                    }
+                } else {
+                    minString = secondString;
+                }
+                break;
+            }
+            counter++;
+        }
+        if (counter == maxLength-1) {
+            minString = firstString;
+        }
+        return minString;
+    }
+    private String maxString(String firstString, String secondString) {
+        String maxString = null;
+        int counter = 0;
+        int maxLength = -1;
+        if (firstString.length() >= secondString.length()) {
+            maxLength = firstString.length();
+        } else if (secondString.length() > firstString.length()) {
+            maxLength = secondString.length();
+        }
+        for (int i = 0; i < maxLength; i++) {
+            if (((int)firstString.charAt(i)) > ((int)secondString.charAt(i))) {
+                if (isNumericString(firstString) && isNumericString(secondString)) {
+                    if (firstString.length() < secondString.length()) {
+                        maxString = secondString;
+                    } else {
+                        maxString = firstString;
+                    }
+                } else {
+                    maxString = firstString;
+                }
+                break;
+            } else if (((int)secondString.charAt(i)) > ((int)firstString.charAt(i))) {
+                if (isNumericString(firstString) && isNumericString(secondString)) {
+                    if (secondString.length() > firstString.length()) {
+                        maxString = firstString;
+                    } else {
+                        maxString = secondString;
+                    }
+                } else {
+                    maxString = secondString;
+                }
+                break;
+            }
+            counter++;
+        }
+        if (counter == maxLength-1) {
+            maxString = firstString;
+        }
+        return maxString;
+    }
+    private int linearSearchMin(Item<?>[] array) {
+        String min = "";
+        for (int j = 0; j < array[0].toString().length(); j++) {
+            min += 'z';
+        }
         int minIndex = -1;
         for (int i = 0; i < array.length; i++) {
-            int current = ((Item<T>)array[i]).toInt();
-            if (current < min) {
+            String current = ((Item<T>)array[i]).toString();
+            if (minString(current, min).equals(current)) {
                 min = current;
                 minIndex = i;
             }
         }
         return minIndex;
     }
-    public int linearSearchMax(Item<?>[] array) {
-        int max = Integer.MIN_VALUE;
+    private int linearSearchMax(Item<?>[] array) {
+        String max = "";
+        for (int j = 0; j < array[0].toString().length(); j++) {
+            max += '0';
+        }
         int maxIndex = -1;
         for (int j = 0; j < array.length; j++) {
-            int current = ((Item<T>)array[j]).toInt();
-            if (current > max) {
+            String current = ((Item<T>)array[j]).toString();
+            if (maxString(current, max).equals(current)) {
                 max = current;
                 maxIndex = j;
             }
         }
         return maxIndex;
     }
-    public Item<T>[] removeSortedDivision(Item<?>[] unsortedDivision, int index) {
+    private Item<T>[] removeSortedDivision(Item<?>[] unsortedDivision, int index) {
         int newUnsortedDivisionLength = unsortedDivision.length - 1;
         Item<?>[] newUnsortedDivision = new Item[newUnsortedDivisionLength];
         for (int i = 0; i < index; i++) {
@@ -99,14 +198,9 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         for (int i = index+1; i <= newUnsortedDivisionLength; i++) {
             newUnsortedDivision[i-1] = unsortedDivision[i];
         }
-        /*System.out.print("unsortedDivision = [");
-        for (int k = 0; k < newUnsortedDivision.length; k++) {
-            System.out.print(String.valueOf(newUnsortedDivision[k]).concat(","));
-        }
-        System.out.print("]\n");*/
         return (Item<T>[])newUnsortedDivision;     
     }
-    public Item<T>[] multisortFrame(Item<?>[] unsortedDivision, int numberOfDivisions) {
+    private Item<T>[] multisortFrame(Item<?>[] unsortedDivision, int numberOfDivisions) {
         Item<?>[] sortedDivision = new Item[numberOfDivisions];
         int sortedArrayLength = sortedDivision.length;
         int halfSortedArrayLength = sortedArrayLength/2;
@@ -117,7 +211,7 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         } else if (sortedArrayLength == 2) {
             Item<?> firstItem = (Item<T>)unsortedDivision[0];
             Item<?> secondItem = (Item<T>)unsortedDivision[1];
-            if (firstItem.toInt() <= secondItem.toInt()) {
+            if (minString(firstItem.toString(),secondItem.toString()).equals(firstItem.toString())) {
                 sortedDivision[0] = firstItem;
                 sortedDivision[1] = secondItem;
             } else {
@@ -128,12 +222,10 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
             while ((minDivisionIndex < halfSortedArrayLength) && (maxDivisionIndex > sortedArrayLength-1-halfSortedArrayLength)) {
                 int indexOfMin = linearSearchMin(unsortedDivision);
                 sortedDivision[minDivisionIndex] = unsortedDivision[indexOfMin];
-                //System.out.println("sortedDivision[".concat(String.valueOf(minDivisionIndex)).concat("] = ").concat(String.valueOf(sortedDivision[minDivisionIndex])));
                 minDivisionIndex++;
                 unsortedDivision = removeSortedDivision(unsortedDivision, indexOfMin);
                 int indexOfMax = linearSearchMax(unsortedDivision);
                 sortedDivision[maxDivisionIndex] = unsortedDivision[indexOfMax];
-                //System.out.println("sortedDivision[".concat(String.valueOf(maxDivisionIndex)).concat("] = ").concat(String.valueOf(sortedDivision[maxDivisionIndex])));
                 maxDivisionIndex--;
                 unsortedDivision = removeSortedDivision(unsortedDivision, indexOfMax);
             }
@@ -143,7 +235,7 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         }
         return (Item<T>[])sortedDivision;
     }
-    public Item<T>[] populateUnsortedSubarray(Item<?>[] unsorted, int index, int numberOfDivisions) {
+    private Item<T>[] populateUnsortedSubarray(Item<?>[] unsorted, int index, int numberOfDivisions) {
         Item<?>[] unsortedSubarray = new Item[numberOfDivisions];
         int unsortedSubarrayIndex = 0;
         for (int i = index; i < numberOfDivisions+index; i++) {
@@ -152,29 +244,19 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         }
         return (Item<T>[])unsortedSubarray;
     }
-    public Item<T>[][] getSortedSubarrays(Item<?>[] unsorted, int numberOfDivisions, int divisor) {
+    private Item<T>[][] getSortedSubarrays(Item<?>[] unsorted, int numberOfDivisions, int divisor) {
         int unsortedLength = unsorted.length;
         Item<?>[][] sortedSubarrays = new Item[divisor][numberOfDivisions];
         int sortedSubarraysIndex = 0;
         for (int i = 0; i < unsortedLength; i+=numberOfDivisions) {
             Item<?>[] unsortedSubarray = populateUnsortedSubarray(unsorted, i, numberOfDivisions);
-            /*System.out.print("unsortedSubarray[".concat(String.valueOf(sortedSubarraysIndex)).concat("] = ["));
-            for (int k = 0; k < unsortedSubarray.length; k++) {
-                System.out.print(String.valueOf(unsortedSubarray[k]).concat(","));
-            }
-            System.out.print("]\n");*/
             Item<?>[] sortedSubarray = multisortFrame(unsortedSubarray, numberOfDivisions);
-            /*System.out.print("sortedSubarray[".concat(String.valueOf(sortedSubarraysIndex)).concat("] = ["));
-            for (int j = 0; j < sortedSubarray.length; j++) {
-                System.out.print(String.valueOf(sortedSubarray[j]).concat(","));
-            }
-            System.out.print("]\n");*/
             sortedSubarrays[sortedSubarraysIndex] = sortedSubarray;
             sortedSubarraysIndex++;
         }
         return (Item<T>[][])sortedSubarrays;
     }
-    public Item<T>[][] getSortOrder(Item<?>[][] sortedSubarrays, int numberOfDivisions, int divisor) {
+    private Item<T>[][] getSortOrder(Item<?>[][] sortedSubarrays, int numberOfDivisions, int divisor) {
         Item<?>[][] sortedOrderedSubarrays = new Item[numberOfDivisions][divisor];
         int sortLevelIndex = 0;
         while (sortLevelIndex < numberOfDivisions) {
@@ -182,23 +264,13 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
             for (int i = 0; i < unsortedSortLevel.length; i++) {
                 unsortedSortLevel[i] = sortedSubarrays[i][sortLevelIndex];
             }
-            /*System.out.print("unsortedSortLevel[".concat(String.valueOf(sortLevelIndex)).concat("] = ["));
-            for (int k = 0; k < unsortedSortLevel.length; k++) {
-                System.out.print(String.valueOf(unsortedSortLevel[k]).concat(","));
-            }
-            System.out.print("]\n");*/
             Item<?>[] sortedSortLevel = multisortFrame(unsortedSortLevel, unsortedSortLevel.length);
-            /*System.out.print("sortedSortLevel[".concat(String.valueOf(sortLevelIndex)).concat("] = ["));
-            for (int m = 0; m < sortedSortLevel.length; m++) {
-                System.out.print(String.valueOf(sortedSortLevel[m]).concat(","));
-            }
-            System.out.print("]\n");*/   
             sortedOrderedSubarrays[sortLevelIndex] = sortedSortLevel;
             sortLevelIndex++;
         }
         return (Item<T>[][])sortedOrderedSubarrays;
     }
-    public Item<T>[] subsort(Item<?>[] firstSortOrderLevel, Item<?>[] secondSortOrderLevel) {
+    private Item<T>[] subsort(Item<?>[] firstSortOrderLevel, Item<?>[] secondSortOrderLevel) {
         Item<?>[] subsorted = null;
         if (!(firstSortOrderLevel.length > 0)) {
             subsorted = (Item<T>[])secondSortOrderLevel;
@@ -209,23 +281,21 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
             int subsortedIndex = 0;
             int firstSortOrderIndex = 0;
             int secondSortOrderIndex = 0;
-            //System.out.println("subsortedIndex = ".concat(String.valueOf(subsortedIndex)));
             while ((firstSortOrderIndex < firstSortOrderLevel.length) && (secondSortOrderIndex < secondSortOrderLevel.length)) {
-                //System.out.println("firstSortOrderLevel[".concat(String.valueOf(firstSortOrderIndex)).concat("] = ").concat(String.valueOf(((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toInt())).concat(", secondSortOrderLevel[").concat(String.valueOf(secondSortOrderIndex)).concat("] = ").concat(String.valueOf(((Item<T>)secondSortOrderLevel[secondSortOrderIndex]).toInt())));
-                if (((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toInt() < ((Item<T>)secondSortOrderLevel[secondSortOrderIndex]).toInt()) {
+                if (minString(((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toString(),((Item<T>)secondSortOrderLevel[secondSortOrderIndex]).toString()).equals(((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toString())) {
                     subsorted[subsortedIndex] = (Item<T>)firstSortOrderLevel[firstSortOrderIndex];
                     firstSortOrderIndex++;
                     subsortedIndex++;
-                } else if (((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toInt() <= ((Item<T>)secondSortOrderLevel[secondSortOrderIndex]).toInt()) {
+                } else if (maxString(((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toString(),((Item<T>)secondSortOrderLevel[secondSortOrderIndex]).toString()).equals(((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toString())) {
+                    subsorted[subsortedIndex] = (Item<T>)secondSortOrderLevel[secondSortOrderIndex];
+                    secondSortOrderIndex++;
+                    subsortedIndex++;
+                } else {
                     subsorted[subsortedIndex] = (Item<T>)firstSortOrderLevel[firstSortOrderIndex];
                     firstSortOrderIndex++;
                     subsorted[subsortedIndex+1] = (Item<T>)secondSortOrderLevel[secondSortOrderIndex];
                     secondSortOrderIndex++;
                     subsortedIndex+=2;
-                } else {
-                    subsorted[subsortedIndex] = (Item<T>)secondSortOrderLevel[secondSortOrderIndex];
-                    secondSortOrderIndex++;
-                    subsortedIndex++;
                 }
             }
             for (int j = secondSortOrderIndex; j < secondSortOrderLevel.length; j++) {
@@ -237,27 +307,17 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
                 subsortedIndex++;
             }
         }
-        /*System.out.print("subsorted = [");
-        for (int i = 0; i < subsorted.length; i++) {
-            System.out.print(String.valueOf(((Item<T>[])subsorted)[i]).concat(","));
-        }
-        System.out.print("]\n");*/
         return (Item<T>[])subsorted;
     }
-    public Item<T>[] sortTruncate(Item<?>[][] sortOrder, int numberOfDivisions, int divisor) {
+    private Item<T>[] sortTruncate(Item<?>[][] sortOrder, int numberOfDivisions, int divisor) {
         int sortedLength = numberOfDivisions * divisor;
         Item<?>[] sorted = new Item[0];
         for (int i = 0; i < sortOrder.length; i++) {
             sorted = subsort(sorted, (Item<T>[])sortOrder[i]);
         }
-        /*System.out.print("allSorted = [");
-        for (int j = 0; j < sorted.length; j++) {
-            System.out.print(String.valueOf(sorted[j]).concat(","));
-        }
-        System.out.print("]\n");*/
         return (Item<T>[])sorted;
     }
-    public void sort(boolean createSortOrder) {
+    protected void sort(boolean createSortOrder) {
         Item<?>[] unsortedItems = getItems();
         int primeDivisions = calculatePrimeDivisions(unsortedItems);
         int divisor = unsortedItems.length/primeDivisions;
@@ -270,6 +330,9 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
             allSorted = sortTruncate(sortedSubarrays, primeDivisions, divisor);
         }
         setItems(allSorted);
+    }
+    public void sort() {
+        sort(false);
     }
     public String toString() {
         String output = "";
