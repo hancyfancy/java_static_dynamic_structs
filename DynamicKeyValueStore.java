@@ -1,4 +1,4 @@
-public class DynamicKeyValueStore<K,V> {
+public class DynamicKeyValueStore<K,V> implements ISortable<K> {
     private DynamicItemStore<?> keys;
     private DynamicItemStore<?> values;
     public DynamicKeyValueStore() {
@@ -43,7 +43,7 @@ public class DynamicKeyValueStore<K,V> {
         this.setKeys(keys);
         this.setValues(values);
     }
-    public void sort(boolean createSortOrder) {
+    private void sort(boolean createSortOrder) {
         DynamicItemStore<?> originalKeys = new DynamicItemStore<K>();
         DynamicItemStore<?> keys = getKeys();
         for (int i = 0; i < keys.getItems().length; i++) {
@@ -61,6 +61,9 @@ public class DynamicKeyValueStore<K,V> {
         }
         this.setKeys(keys);
         this.setValues(sortedValues);
+    }
+    public void sort() {
+        sort(false);
     }
     public String toString() {
         String output = "";
