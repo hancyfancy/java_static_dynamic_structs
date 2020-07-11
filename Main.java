@@ -229,11 +229,20 @@ public class Main {
         System.out.println("--------------------Dynamic sorted item store");
 
         DynamicItemStore<?> dynamicSortedIntegerStore = new DynamicItemStore<Integer>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 4; i++) {
             dynamicSortedIntegerStore.setItem(new Item((int)random.nextInt(10000)));
         }
-        dynamicSortedIntegerStore.sort(false);
+        dynamicSortedIntegerStore.sort();
         System.out.print(dynamicSortedIntegerStore);
+        System.out.print("\n");
+
+        DynamicItemStore<?> dynamicSortedStringStore = new DynamicItemStore<String>();
+        dynamicSortedStringStore.setItem(new Item((String)"Fellow"));
+        dynamicSortedStringStore.setItem(new Item((String)"Mellow"));
+        dynamicSortedStringStore.setItem(new Item((String)"Yellow"));
+        dynamicSortedStringStore.setItem(new Item((String)"Bellow"));
+        dynamicSortedStringStore.sort();
+        System.out.print(dynamicSortedStringStore);
         System.out.print("\n");
 
         System.out.println("--------------------Dynamic unique item store");
@@ -265,6 +274,26 @@ public class Main {
         dynamicKeyValueStore.set(new Item((String)"Shulz"), new Item((int)7));
         dynamicKeyValueStore.set(new Item((String)"Jems"), new Item((int)3));
         System.out.print(dynamicKeyValueStore);
+        System.out.print("\n");
+
+        System.out.println("--------------------Dynamic sorted key value store");
+
+        DynamicKeyValueStore<?,?> dynamicSortedIntegerKeyValueStore = new DynamicKeyValueStore<Integer,String>();
+        dynamicSortedIntegerKeyValueStore.set(new Item((int)88), new Item((String)"Yukon"));
+        dynamicSortedIntegerKeyValueStore.set(new Item((int)832), new Item((String)"Bicker"));
+        dynamicSortedIntegerKeyValueStore.set(new Item((int)7), new Item((String)"Shulz"));
+        dynamicSortedIntegerKeyValueStore.set(new Item((int)3), new Item((String)"Jems"));
+        dynamicSortedIntegerKeyValueStore.sort();
+        System.out.print(dynamicSortedIntegerKeyValueStore);
+        System.out.print("\n");
+
+        DynamicKeyValueStore<?,?> dynamicSortedStringKeyValueStore = new DynamicKeyValueStore<String,Integer>();
+        dynamicSortedStringKeyValueStore.set(new Item((String)"Yukon"), new Item((int)8));
+        dynamicSortedStringKeyValueStore.set(new Item((String)"Bicker"), new Item((int)9));
+        dynamicSortedStringKeyValueStore.set(new Item((String)"Shulz"), new Item((int)7));
+        dynamicSortedStringKeyValueStore.set(new Item((String)"Jems"), new Item((int)3));
+        dynamicSortedStringKeyValueStore.sort();
+        System.out.print(dynamicSortedStringKeyValueStore);
         System.out.print("\n");
     }
 }
