@@ -285,6 +285,7 @@ public class Main {
         dynamicSortedIntegerKeyValueStore.set(new Item((int)3), new Item((String)"Jems"));
         dynamicSortedIntegerKeyValueStore.sort();
         System.out.print(dynamicSortedIntegerKeyValueStore);
+        System.out.println("7 -> ".concat(dynamicSortedIntegerKeyValueStore.get(new Item((int)7)).toString()));
         System.out.print("\n");
 
         DynamicKeyValueStore<?,?> dynamicSortedStringKeyValueStore = new DynamicKeyValueStore<String,Integer>();
@@ -294,6 +295,33 @@ public class Main {
         dynamicSortedStringKeyValueStore.set(new Item((String)"Jems"), new Item((int)3));
         dynamicSortedStringKeyValueStore.sort();
         System.out.print(dynamicSortedStringKeyValueStore);
+        System.out.println("Yukon -> ".concat(dynamicSortedStringKeyValueStore.get(new Item((String)"Yukon")).toString()));
+        System.out.print("\n");
+
+        System.out.println("--------------------Static item store replace item");
+
+        StaticItemStore<?> staticReplacedIntegerStore = new StaticItemStore<Integer>(4);
+        staticReplacedIntegerStore.setItem(new Item((int)1));
+        staticReplacedIntegerStore.setItem(new Item((int)3));
+        staticReplacedIntegerStore.setItem(new Item((int)9));
+        staticReplacedIntegerStore.setItem(new Item((int)5));
+        System.out.print(staticReplacedIntegerStore);
+        System.out.print("\n");
+        staticReplacedIntegerStore.replaceItem(1, new Item((int)7));
+        System.out.print(staticReplacedIntegerStore);
+        System.out.print("\n");
+
+        System.out.println("--------------------Dynamic item store replace item");
+        
+        DynamicItemStore<?> dynamicReplacedIntegerStore = new DynamicItemStore<Integer>();
+        dynamicReplacedIntegerStore.setItem(new Item((int)1));
+        dynamicReplacedIntegerStore.setItem(new Item((int)3));
+        dynamicReplacedIntegerStore.setItem(new Item((int)9));
+        dynamicReplacedIntegerStore.setItem(new Item((int)5));
+        System.out.print(dynamicReplacedIntegerStore);
+        System.out.print("\n");
+        dynamicReplacedIntegerStore.replaceItem(2, new Item((int)7));
+        System.out.print(dynamicReplacedIntegerStore);
         System.out.print("\n");
     }
 }
