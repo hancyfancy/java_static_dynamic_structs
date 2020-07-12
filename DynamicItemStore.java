@@ -35,4 +35,11 @@ public class DynamicItemStore<T> extends AbstractItemStore<T> implements IStorab
         super.setItems(newItems);
         super.setCurrentIndex(nextIndex);
     }
+    public void replaceItem(int index, Item<?> newItem) {
+        Item<?>[] items = getItems();
+        if (index < items.length) {
+            items[index] = newItem;
+            super.setItems(items);
+        }
+    }
 }
