@@ -53,4 +53,11 @@ public class StaticItemStore<T> extends AbstractItemStore<T> implements IStorabl
             super.setCurrentIndex(nextIndex);
         }
     }
+    public void replaceItem(int index, Item<?> newItem) {
+        if (index < getLength()) {
+            Item<?>[] items = getItems();
+            items[index] = newItem;
+            super.setItems(items);
+        }
+    }
 }
