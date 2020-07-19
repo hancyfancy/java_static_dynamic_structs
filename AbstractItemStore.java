@@ -1,20 +1,26 @@
 abstract class AbstractItemStore<T> implements ISortable<T> {
     private int currentIndex;
     private Item<?>[] items;
-    public AbstractItemStore() {
+    protected AbstractItemStore() {
         this.setCurrentIndex(0);
     }
-    public int getCurrentIndex() {
+    protected int getCurrentIndex() {
         return this.currentIndex;
     }
     protected void setCurrentIndex(int newCurrentIndex) {
         this.currentIndex = newCurrentIndex;
     }
-    public Item<T>[] getItems() {
+    protected Item<T>[] getItems() {
         return (Item<T>[])this.items;
     }
-    public Item<T> getItem(int index) {
+    protected Item<T> getItem(int index) {
         return (Item<T>)getItems()[index];
+    }
+    public Object get(int index) {
+        return getItem(index).toObject();
+    }
+    public int getLength() {
+        return getItems().length;
     }
     protected void setItems(Item<?>[] newItems) {
         this.items = newItems;
