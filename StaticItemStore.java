@@ -1,4 +1,4 @@
-public class StaticItemStore<T> extends AbstractItemStore<T> implements IStorable<T> {
+public class StaticItemStore<T> extends AbstractItemStore<T> implements IIterable<T>, IOneDimensionStorable<T> {
     private int length;
     public StaticItemStore(int length) {
         super();        
@@ -7,7 +7,7 @@ public class StaticItemStore<T> extends AbstractItemStore<T> implements IStorabl
             super.setItems(new Item[length]);
         }
     }
-    public int getIndex(Item<?> item) {
+    private int getIndex(Item<?> item) {
         int index = -1;
         Item<?>[] items = getItems();
         for (int i = 0; i < getLength(); i++) {
@@ -18,6 +18,10 @@ public class StaticItemStore<T> extends AbstractItemStore<T> implements IStorabl
         }
         return index;
     }
+    public int getIndex(Object object) {
+        return getIndex(new Item(object));
+    }
+    @Override
     public int getLength() {
         return this.length;
     }
@@ -29,10 +33,10 @@ public class StaticItemStore<T> extends AbstractItemStore<T> implements IStorabl
     private boolean isLengthValid(int newLength) {
         return (newLength > 0);
     }
-    public Item<T> getCurrentItem() {
+    private Item<T> getCurrentItem() {
         return (Item<T>)getItems()[getCurrentIndex()];
     }
-    public void setItem(Item<?> newItem) {
+    private void setItem(Item<?> newItem) {
         Item<?>[] newItems = null;
         int currentIndex = getCurrentIndex();
         int length = getLength();
@@ -53,11 +57,17 @@ public class StaticItemStore<T> extends AbstractItemStore<T> implements IStorabl
             super.setCurrentIndex(nextIndex);
         }
     }
-    public void replaceItem(int index, Item<?> newItem) {
+    public void add(Object toBeAdded) {
+        setItem(new Item(toBeAdded));
+    }
+    private void replaceItem(int index, Item<?> newItem) {
         if (index < getLength()) {
             Item<?>[] items = getItems();
             items[index] = newItem;
             super.setItems(items);
         }
+    }
+    public void replace(int index, Object toBeReplaced) {
+        replaceItem(index, new Item(toBeReplaced)); 
     }
 }
