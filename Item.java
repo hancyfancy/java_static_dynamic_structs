@@ -17,9 +17,12 @@ public class Item<T> {
         return thisContent.equals(contentToCompare);
     }
     public int toInt() {
-        return Integer.valueOf(String.valueOf(getContent())).intValue();
+        return Integer.valueOf(toString());
     }
     public String toString() {
-        return getContent().toString();
+        return String.valueOf(getContent());
+    }
+    public Object toObject() {
+        return (Object)getContent();
     }
 }
