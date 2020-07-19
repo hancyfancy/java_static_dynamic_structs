@@ -3,7 +3,7 @@ public class DynamicUniqueItemStore<T> extends DynamicItemStore<T> {
         super();
     }
     @Override
-    public void setItem(Item<?> newItem) {
+    protected void setItem(Item<?> newItem) {
         if (getIndex(newItem) == -1) {
             Item<?>[] newItems = null;
             int currentIndex = getCurrentIndex();
