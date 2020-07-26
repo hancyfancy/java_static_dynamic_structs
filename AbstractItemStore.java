@@ -16,8 +16,11 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
     protected Item<T> getItem(int index) {
         return (Item<T>)getItems()[index];
     }
-    public Object get(int index) {
+    protected Object getObject(int index) {
         return getItem(index).toObject();
+    }
+    public T get(int index) {
+        return (T)getObject(index);
     }
     public int getLength() {
         return getItems().length;
