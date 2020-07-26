@@ -1,4 +1,4 @@
-interface ITwoDimensionStorable<T> {
-    public Object get(Object key, boolean byKey);
+interface ITwoDimensionStorable<K,V> {
+    public V get(Object key);
     public void add(Object key, Object value);
 }
