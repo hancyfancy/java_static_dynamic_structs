@@ -292,7 +292,7 @@ public class Main {
         dynamicSortedIntegerKeyValueStore.add(3, "Jems");
         dynamicSortedIntegerKeyValueStore.sort();
         System.out.print(dynamicSortedIntegerKeyValueStore);
-        System.out.println("7 -> ".concat(String.valueOf(dynamicSortedIntegerKeyValueStore.get(7, true))));
+        System.out.println("7 -> ".concat(String.valueOf(dynamicSortedIntegerKeyValueStore.get(7))));
         System.out.print("\n");
 
         DynamicKeyValueStore<?,?> dynamicSortedStringKeyValueStore = new DynamicKeyValueStore<String,Integer>();
@@ -302,7 +302,7 @@ public class Main {
         dynamicSortedStringKeyValueStore.add("Jems", 3);
         dynamicSortedStringKeyValueStore.sort();
         System.out.print(dynamicSortedStringKeyValueStore);
-        System.out.println("Yukon -> ".concat(String.valueOf(dynamicSortedStringKeyValueStore.get("Yukon", true))));
+        System.out.println("Yukon -> ".concat(String.valueOf(dynamicSortedStringKeyValueStore.get("Yukon"))));
         System.out.print("\n");
 
         System.out.println("--------------------Static item store replace item");
@@ -317,6 +317,8 @@ public class Main {
         staticReplacedIntegerStore.replace(1, 7);
         System.out.print(staticReplacedIntegerStore);
         System.out.print("\n");
+        System.out.println("Index of 9 = ".concat(String.valueOf(staticReplacedIntegerStore.getIndex(9))));
+        System.out.println("Item at index 3 = ".concat(String.valueOf(staticReplacedIntegerStore.get(3))));
 
         System.out.println("--------------------Dynamic item store replace item");
         
