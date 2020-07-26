@@ -1,4 +1,4 @@
-public class DynamicKeyValueStore<K,V> implements IIterable<K>, ISortable<K>, ITwoDimensionStorable<K> {
+public class DynamicKeyValueStore<K,V> implements IIterable<K>, ISortable<K>, ITwoDimensionStorable<K,V> {
     private DynamicItemStore<?> keys;
     private DynamicItemStore<?> values;
     public DynamicKeyValueStore() {
@@ -38,7 +38,7 @@ public class DynamicKeyValueStore<K,V> implements IIterable<K>, ISortable<K>, IT
         }
         return (Item<V>)value;
     }
-    public Object get(Object key, boolean byKey) {
+    protected Object getObject(Object key, boolean byKey) {
         Object value = null;
         if (!byKey) {
             if (key.getClass().getName().equals("java.lang.Integer")) {
@@ -51,6 +51,9 @@ public class DynamicKeyValueStore<K,V> implements IIterable<K>, ISortable<K>, IT
             value = getValue(new Item(key)).toObject();
         }
         return value;
+    }
+    public V get(Object key) {
+        return (V)getObject(key, true);
     }
     public int getLength() {
         return getKeys().getLength();
@@ -93,7 +96,7 @@ public class DynamicKeyValueStore<K,V> implements IIterable<K>, ISortable<K>, IT
         Item<?>[] keyItems = getKeys().getItems();
         Item<?>[] valueItems = getValues().getItems();
         for (int i = 0; i < keyItems.length; i++) {
-            output = output.concat("Index ").concat(String.valueOf(i)).concat(": Key -> ").concat(String.valueOf(keyItems[i])).concat(", Value -> ").concat(String.valueOf(valueItems[i])).concat("\n");
+            output = output.concat("Index ").concat(String.valueOf(i)).concat(": Key -> ").concat(String.valueOf(keyItems[i])).concat(", Value -> ").concat(String.valueOf(valueItems[i]));
         }
         return output;
     }
