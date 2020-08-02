@@ -308,6 +308,9 @@ public class Main {
         System.out.println("--------------------Static item store replace item");
 
         StaticItemStore<?> staticReplacedIntegerStore = new StaticItemStore<Integer>(4);
+        System.out.print(staticReplacedIntegerStore);
+        staticReplacedIntegerStore.replaceAll(0);
+        System.out.print(staticReplacedIntegerStore);
         staticReplacedIntegerStore.add(1);
         staticReplacedIntegerStore.add(3);
         staticReplacedIntegerStore.add(9);
