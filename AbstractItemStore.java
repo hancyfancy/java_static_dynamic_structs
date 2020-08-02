@@ -28,6 +28,16 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
     protected void setItems(Item<?>[] newItems) {
         this.items = newItems;
     }
+    protected void replaceAllItems(Item<?> newItem) {
+        Item<?>[] items = getItems();
+        for (int i = 0; i < items.length; i++) {
+            items[i] = newItem;
+        }
+        this.setItems(items);
+    }
+    public void replaceAll(Object toBeReplaced) {
+        this.replaceAllItems(new Item(toBeReplaced)); 
+    }
     private boolean isNumericString(String stringToBeChecked) {
         boolean isNumeric = true;
         if (stringToBeChecked != null && stringToBeChecked.length() > 0) {
