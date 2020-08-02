@@ -39,7 +39,7 @@ public class DynamicItemStore<T> extends AbstractItemStore<T> implements IInsert
         super.setCurrentIndex(nextIndex);
     }
     public void add(Object toBeAdded) {
-        setItem(new Item(toBeAdded));
+        this.setItem(new Item(toBeAdded));
     }
     private void replaceItem(int index, Item<?> newItem) {
         Item<?>[] items = getItems();
@@ -49,7 +49,7 @@ public class DynamicItemStore<T> extends AbstractItemStore<T> implements IInsert
         }
     }
     public void replace(int index, Object toBeReplaced) {
-        replaceItem(index, new Item(toBeReplaced)); 
+        this.replaceItem(index, new Item(toBeReplaced)); 
     }
     private void insertItem(int index, Item<?> newItem) {
         Item<?>[] newItems = null;
@@ -80,6 +80,6 @@ public class DynamicItemStore<T> extends AbstractItemStore<T> implements IInsert
         }
     }
     public void insert(int index, Object toBeInserted) {
-        insertItem(index, new Item(toBeInserted));
+        this.insertItem(index, new Item(toBeInserted));
     }
 }
