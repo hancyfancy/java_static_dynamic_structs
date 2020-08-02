@@ -1,7 +1,7 @@
 public class StaticItemStore<T> extends AbstractItemStore<T> implements IIterable<T>, IOneDimensionStorable<T> {
     private int length;
     public StaticItemStore(int length) {
-        super();        
+        super();
         if (this.isLengthValid(length)) {
             this.setLength(length);
             super.setItems(new Item[length]);
@@ -58,7 +58,7 @@ public class StaticItemStore<T> extends AbstractItemStore<T> implements IIterabl
         }
     }
     public void add(Object toBeAdded) {
-        setItem(new Item(toBeAdded));
+        this.setItem(new Item(toBeAdded));
     }
     private void replaceItem(int index, Item<?> newItem) {
         if (index < getLength()) {
@@ -68,6 +68,6 @@ public class StaticItemStore<T> extends AbstractItemStore<T> implements IIterabl
         }
     }
     public void replace(int index, Object toBeReplaced) {
-        replaceItem(index, new Item(toBeReplaced)); 
+        this.replaceItem(index, new Item(toBeReplaced)); 
     }
 }
