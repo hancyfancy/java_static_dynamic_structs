@@ -59,11 +59,12 @@ Simple one dimensional and two dimensional data structures.
 894.236
 -7.5
 c
-False
+false
 Hello
+java.lang.Object@2c7b84de
 
---------------------Static store
-[{Index 0: 0}, {Index 1: 255}, {Index 2: 1}, {Index 3: 8}]
+--------------------Static item store
+[{Index 0: -128}, {Index 1: 127}, {Index 2: 1}, {Index 3: 8}]
 
 [{Index 0: -32768}, {Index 1: 32767}, {Index 2: 2}, {Index 3: 16}]
 
@@ -71,30 +72,26 @@ Hello
 
 [{Index 0: -9223372036854775808}, {Index 1: 9223372036854775807}, {Index 2: 8}, {Index 3: 64}]
 
-[{Index 0: -3.402823E+38}, {Index 1: 3.402823E+38}, {Index 2: -Infinity}, {Index 3: Infinity}, {Index 4: 1.401298E-45}, {Index 5: NaN}]
+[{Index 0: 1.4E-45}, {Index 1: 3.4028235E38}, {Index 2: 4}, {Index 3: 32}, {Index 4: -126}, {Index 5: 127}, {Index 6: -Infinity}, {Index 7: Infinity}, {Index 8: 1.17549435E-38}, {Index 9: NaN}]
 
-[{Index 0: -1.79769313486232E+308}, {Index 1: 1.79769313486232E+308}, {Index 2: -Infinity}, {Index 3: Infinity}, {Index 4: 4.94065645841247E-324}, {Index 5: NaN}]
+[{Index 0: 4.9E-324}, {Index 1: 1.7976931348623157E308}, {Index 2: 8}, {Index 3: 64}, {Index 4: -1022}, {Index 5: 1023}, {Index 6: -Infinity}, {Index 7: Infinity}, {Index 8: 2.2250738585072014E-308}, {Index 9: NaN}]
 
-[{Index 0: }, {Index 1: ￿}]
+[{Index 0: ?}, {Index 1: ?}, {Index 2: ?}, {Index 3: ￿}, {Index 4: ?}, {Index 5: ?}, {Index 6: ?}, {Index 7: }]
 
-[{Index 0: False}, {Index 1: True}]
+[{Index 0: false}, {Index 1: true}]
 
 [{Index 0: Fellow}, {Index 1: Mellow}, {Index 2: Yellow}, {Index 3: Bellow}]
 
-[{Index 0: }, {Index 1: System.Object}]
+[{Index 0: Thread[Thread-0,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@4f023edb}]
 
---------------------Static store replace item
-[{Index 0: }, {Index 1: }, {Index 2: }, {Index 3: }]
-
+--------------------Static item store replace item
+[{Index 0: null}, {Index 1: null}, {Index 2: null}, {Index 3: null}]
 [{Index 0: 1}, {Index 1: 3}, {Index 2: 9}, {Index 3: 5}]
-
 [{Index 0: 0}, {Index 1: 0}, {Index 2: 0}, {Index 3: 0}]
-
 [{Index 0: 0}, {Index 1: 7}, {Index 2: 0}, {Index 3: 0}]
-
 Item at index 3 = 0
---------------------Dynamic store
-[{Index 0: 0}, {Index 1: 255}, {Index 2: 1}, {Index 3: 8}]
+--------------------Dynamic item store
+[{Index 0: -128}, {Index 1: 127}, {Index 2: 1}, {Index 3: 8}]
 
 [{Index 0: -32768}, {Index 1: 32767}, {Index 2: 2}, {Index 3: 16}]
 
@@ -102,29 +99,29 @@ Item at index 3 = 0
 
 [{Index 0: -9223372036854775808}, {Index 1: 9223372036854775807}, {Index 2: 8}, {Index 3: 64}]
 
-[{Index 0: -3.402823E+38}, {Index 1: 3.402823E+38}, {Index 2: -Infinity}, {Index 3: Infinity}, {Index 4: 1.401298E-45}, {Index 5: NaN}]
+[{Index 0: 1.4E-45}, {Index 1: 3.4028235E38}, {Index 2: 4}, {Index 3: 32}, {Index 4: -126}, {Index 5: 127}, {Index 6: -Infinity}, {Index 7: Infinity}, {Index 8: 1.17549435E-38}, {Index 9: NaN}]
 
-[{Index 0: -1.79769313486232E+308}, {Index 1: 1.79769313486232E+308}, {Index 2: -Infinity}, {Index 3: Infinity}, {Index 4: 4.94065645841247E-324}, {Index 5: NaN}]
+[{Index 0: 4.9E-324}, {Index 1: 1.7976931348623157E308}, {Index 2: 8}, {Index 3: 64}, {Index 4: -1022}, {Index 5: 1023}, {Index 6: -Infinity}, {Index 7: Infinity}, {Index 8: 2.2250738585072014E-308}, {Index 9: NaN}]
 
-[{Index 0: }, {Index 1: ￿}]
+[{Index 0: ?}, {Index 1: ?}, {Index 2: ?}, {Index 3: ￿}, {Index 4: ?}, {Index 5: ?}, {Index 6: ?}, {Index 7: }]
 
-[{Index 0: False}, {Index 1: True}]
+[{Index 0: false}, {Index 1: true}]
 
 [{Index 0: Fellow}, {Index 1: Mellow}, {Index 2: Yellow}, {Index 3: Bellow}]
 
-[{Index 0: }, {Index 1: System.Object}]
+[{Index 0: Thread[Thread-1,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@85ede7b}]
 
---------------------Dynamic sorted store
-[{Index 0: 209}, {Index 1: 297}, {Index 2: 743}, {Index 3: 1597}]
+--------------------Dynamic sorted item store
+[{Index 0: 989}, {Index 1: 1045}, {Index 2: 1793}, {Index 3: 1891}]
 
 [{Index 0: Bellow}, {Index 1: Fellow}, {Index 2: Mellow}, {Index 3: Yellow}]
 
---------------------Dynamic store replace item
+--------------------Dynamic item store replace item
 [{Index 0: 1}, {Index 1: 3}, {Index 2: 9}, {Index 3: 5}]
 
 [{Index 0: 1}, {Index 1: 3}, {Index 2: 7}, {Index 3: 5}]
 
---------------------Dynamic store insert item
+--------------------Dynamic item store insert item
 [{Index 0: 1}, {Index 1: 3}, {Index 2: 9}, {Index 3: 5}]
 
 [{Index 0: 1}, {Index 1: 3}, {Index 2: 7}, {Index 3: 9}, {Index 4: 5}]
@@ -135,9 +132,10 @@ Item at index 3 = 0
 
 Index of 9 = 4
 Item at index 3 = 7
-
 --------------------Dynamic unique item store
 [{Index 0: 1}, {Index 1: 2}, {Index 2: 3}]
+
+[{Index 0: a}, {Index 1: b}, {Index 2: c}]
 
 --------------------Dynamic key value store
 Index 0: Key -> Yukon, Value -> 8
@@ -145,7 +143,7 @@ Index 1: Key -> Bicker, Value -> 9
 Index 2: Key -> Shulz, Value -> 7
 Index 3: Key -> Jems, Value -> 3
 
-Index 0: Key -> 1, Value -> [{Index 0: }, {Index 1: }, {Index 2: }, {Index 3: }]
+Index 0: Key -> 1, Value -> [{Index 0: null}, {Index 1: null}, {Index 2: null}, {Index 3: null}]
 
 Index 1: Key -> 2, Value -> []
 
