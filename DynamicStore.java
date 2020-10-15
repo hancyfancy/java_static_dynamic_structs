@@ -1,5 +1,7 @@
-public class DynamicItemStore<T> extends AbstractItemStore<T> implements IInsertable<T>, IIterable<T>, IOneDimensionStorable<T> {
-    public DynamicItemStore() {
+import java.lang.reflect.Method;
+
+public class DynamicStore<T> extends ItemStore<T> implements IInsertable<T>, IOneDimensionIterable<T>, IOneDimensionStorable<T> {
+    public DynamicStore() {
         super();
         super.setItems(new Item[]{});
     }
@@ -12,6 +14,12 @@ public class DynamicItemStore<T> extends AbstractItemStore<T> implements IInsert
                 break;
             }
         }
+        if (index == -1)
+        {
+            Class thisClass = this.getClass();
+            Method thisMethod = thisClass.getEnclosingMethod();
+            throw new Error(thisClass.getName().concat(".").concat(thisMethod.getName()).concat(": Specified item does not exist."));
+        }
         return index;
     }
     public int getIndex(Object object) {
@@ -22,12 +30,10 @@ public class DynamicItemStore<T> extends AbstractItemStore<T> implements IInsert
     }
     protected void setItem(Item<?> newItem) {
         Item<?>[] newItems = null;
-        int currentIndex = getCurrentIndex();
-        int nextIndex = currentIndex + 1;
-        Item<?>[] items = getItems();
+        int currentIndex = super.getCurrentIndex();
+        Item<?>[] items = super.getItems();
         int itemsLength = items.length;
-        int nextItemsLength = itemsLength + 1;
-        newItems = new Item[nextItemsLength];
+        newItems = new Item[itemsLength + 1];
         for (int i = 0; i < itemsLength; i++) {
             Item<?> currentItem = items[i];
             if (currentItem != null) {
@@ -36,29 +42,37 @@ public class DynamicItemStore<T> extends AbstractItemStore<T> implements IInsert
         }
         newItems[currentIndex] = newItem;
         super.setItems(newItems);
-        super.setCurrentIndex(nextIndex);
+        super.setCurrentIndex(currentIndex + 1);
     }
     public void add(Object toBeAdded) {
         this.setItem(new Item(toBeAdded));
     }
     private void replaceItem(int index, Item<?> newItem) {
         Item<?>[] items = getItems();
-        if (index < items.length) {
+        if (items[index] != null) {
             items[index] = newItem;
-            super.setItems(items);
+        } else {
+            Class thisClass = this.getClass();
+            Method thisMethod = thisClass.getEnclosingMethod();
+            throw new Error(thisClass.getName().concat(".").concat(thisMethod.getName()).concat(": Null items cannot be replaced, try adding or inserting instead."));
         }
+        super.setItems(items);
     }
     public void replace(int index, Object toBeReplaced) {
         this.replaceItem(index, new Item(toBeReplaced)); 
     }
     private void insertItem(int index, Item<?> newItem) {
         Item<?>[] newItems = null;
-        Item<?>[] items = getItems();
+        Item<?>[] items = super.getItems();
         int itemsLength = items.length;
         if (index > -1) {
-            if (index >= itemsLength) {
+            if (index == itemsLength) {
                 super.setCurrentIndex(itemsLength);
                 setItem(newItem);
+            } else if (index > itemsLength) {
+                Class thisClass = this.getClass();
+                Method thisMethod = thisClass.getEnclosingMethod();
+                throw new Error(thisClass.getName().concat(".").concat(thisMethod.getName()).concat(": Index must be less than or equal to length of Dynamic Store."));
             } else {
                 newItems = new Item[itemsLength+1];
                 if (index == 0) {
@@ -77,6 +91,10 @@ public class DynamicItemStore<T> extends AbstractItemStore<T> implements IInsert
                 }
                 super.setItems(newItems);
             }
+        } else {
+            Class thisClass = this.getClass();
+            Method thisMethod = thisClass.getEnclosingMethod();
+            throw new Error(thisClass.getName().concat(".").concat(thisMethod.getName()).concat(": Index must be non negative."));
         }
     }
     public void insert(int index, Object toBeInserted) {
