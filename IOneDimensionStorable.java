@@ -1,6 +1,6 @@
 interface IOneDimensionStorable<T> {
-    public T get(int index);
-    public void add(Object toBeAdded);
-    public void replace(int index, Object toBeReplaced);
-    public void replaceAll(Object toBeReplaced);
+    T get(int index);
+    void add(Object toBeAdded);
+    void replace(int index, Object toBeReplaced);
+    void replaceAll(Object toBeReplaced);
 }
