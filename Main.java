@@ -30,18 +30,20 @@ public class Main {
 
         System.out.println("--------------------Static item store");
     
-        //AbstractItemStore<?> staticItemStore = new StaticItemStore<int>(4); //cannot find symbol
-        //StaticItemStore<?> staticItemStore = new StaticItemStore<int>(4); //unexpected type
+        //ItemStore<?> StaticStore = new StaticStore<int>(4); //cannot find symbol
+        //StaticStore<?> StaticStore = new StaticStore<int>(4); //unexpected type
         
-        StaticItemStore<?> staticByteStore = new StaticItemStore<Byte>(4);
+        //StaticStore<Byte> staticInvalidShortStore = new StaticStore<Byte>(-1);
+        StaticStore<?> staticByteStore = new StaticStore<Byte>(4);
         staticByteStore.add(Byte.MIN_VALUE);
         staticByteStore.add(Byte.MAX_VALUE);
         staticByteStore.add(Byte.BYTES);
         staticByteStore.add(Byte.SIZE);
+        //staticByteStore.add(5);
         System.out.print(staticByteStore);
         System.out.print("\n");
 
-        StaticItemStore<?> staticShortStore = new StaticItemStore<Short>(4);
+        StaticStore<?> staticShortStore = new StaticStore<Short>(4);
         staticShortStore.add(Short.MIN_VALUE);
         staticShortStore.add(Short.MAX_VALUE);
         staticShortStore.add(Short.BYTES);
@@ -49,7 +51,7 @@ public class Main {
         System.out.print(staticShortStore);
         System.out.print("\n");
 
-        StaticItemStore<?> staticIntegerStore = new StaticItemStore<Integer>(4);
+        StaticStore<?> staticIntegerStore = new StaticStore<Integer>(4);
         staticIntegerStore.add(Integer.MIN_VALUE);
         staticIntegerStore.add(Integer.MAX_VALUE);
         staticIntegerStore.add(Integer.BYTES);
@@ -57,7 +59,7 @@ public class Main {
         System.out.print(staticIntegerStore);
         System.out.print("\n");
 
-        StaticItemStore<?> staticLongStore = new StaticItemStore<Long>(4);
+        StaticStore<?> staticLongStore = new StaticStore<Long>(4);
         staticLongStore.add(Long.MIN_VALUE);
         staticLongStore.add(Long.MAX_VALUE);
         staticLongStore.add(Long.BYTES);
@@ -65,7 +67,7 @@ public class Main {
         System.out.print(staticLongStore);
         System.out.print("\n");
 
-        StaticItemStore<?> staticFloatStore = new StaticItemStore<Float>(10);
+        StaticStore<?> staticFloatStore = new StaticStore<Float>(10);
         staticFloatStore.add(Float.MIN_VALUE);
         staticFloatStore.add(Float.MAX_VALUE);
         staticFloatStore.add(Float.BYTES);
@@ -79,7 +81,7 @@ public class Main {
         System.out.print(staticFloatStore);
         System.out.print("\n");
 
-        StaticItemStore<?> staticDoubleStore = new StaticItemStore<Double>(10);
+        StaticStore<?> staticDoubleStore = new StaticStore<Double>(10);
         staticDoubleStore.add(Double.MIN_VALUE);
         staticDoubleStore.add(Double.MAX_VALUE);
         staticDoubleStore.add(Double.BYTES);
@@ -93,7 +95,7 @@ public class Main {
         System.out.print(staticDoubleStore);
         System.out.print("\n");
 
-        StaticItemStore<?> staticCharacterStore = new StaticItemStore<Character>(8);
+        StaticStore<?> staticCharacterStore = new StaticStore<Character>(8);
         staticCharacterStore.add(Character.MAX_HIGH_SURROGATE);
         staticCharacterStore.add(Character.MAX_LOW_SURROGATE);
         staticCharacterStore.add(Character.MAX_SURROGATE);
@@ -105,13 +107,13 @@ public class Main {
         System.out.print(staticCharacterStore);
         System.out.print("\n");
 
-        StaticItemStore<?> staticBooleanStore = new StaticItemStore<Boolean>(2);
+        StaticStore<?> staticBooleanStore = new StaticStore<Boolean>(2);
         staticBooleanStore.add(false);
         staticBooleanStore.add(true);
         System.out.print(staticBooleanStore);
         System.out.print("\n");
 
-        StaticItemStore<?> staticStringStore = new StaticItemStore<String>(4);
+        StaticStore<?> staticStringStore = new StaticStore<String>(4);
         staticStringStore.add("Fellow");
         staticStringStore.add("Mellow");
         staticStringStore.add("Yellow");
@@ -119,7 +121,7 @@ public class Main {
         System.out.print(staticStringStore);
         System.out.print("\n");
 
-        StaticItemStore<?> staticObjectStore = new StaticItemStore<Object>(4);
+        StaticStore<?> staticObjectStore = new StaticStore<Object>(4);
         staticObjectStore.add(new Thread());
         staticObjectStore.add(new Error());
         staticObjectStore.add(new Exception());
@@ -127,12 +129,31 @@ public class Main {
         System.out.print(staticObjectStore);
         System.out.print("\n");
 
+        System.out.println("--------------------Static item store replace item");
+
+        StaticStore<?> staticReplacedIntegerStore = new StaticStore<Integer>(4);
+        System.out.print(staticReplacedIntegerStore);
+        //staticReplacedIntegerStore.replaceAll(0);
+        //System.out.print(staticReplacedIntegerStore);
+        staticReplacedIntegerStore.add(1);
+        //staticReplacedIntegerStore.replace(1, 7);
+        staticReplacedIntegerStore.add(3);
+        staticReplacedIntegerStore.add(9);
+        staticReplacedIntegerStore.add(5);
+        System.out.print(staticReplacedIntegerStore);
+        staticReplacedIntegerStore.replaceAll(0);
+        System.out.print(staticReplacedIntegerStore);
+        staticReplacedIntegerStore.replace(1, 7);
+        System.out.print(staticReplacedIntegerStore);
+        //System.out.println("Index of 9 = ".concat(String.valueOf(staticReplacedIntegerStore.getIndex(9))));
+        System.out.println("Item at index 3 = ".concat(String.valueOf(staticReplacedIntegerStore.get(3))));
+
         System.out.println("--------------------Dynamic item store");
 
-        //AbstractItemStore<?> dynamicItemStore = new DynamicItemStore<int>(); //cannot find symbol
-        //DynamicItemStore<?> dynamicItemStore = new DynamicItemStore<int>(); //unexpected type
+        //ItemStore<?> DynamicStore = new DynamicStore<int>(); //cannot find symbol
+        //DynamicStore<?> DynamicStore = new DynamicStore<int>(); //unexpected type
         
-        DynamicItemStore<?> dynamicByteStore = new DynamicItemStore<Byte>();
+        DynamicStore<?> dynamicByteStore = new DynamicStore<Byte>();
         dynamicByteStore.add(Byte.MIN_VALUE);
         dynamicByteStore.add(Byte.MAX_VALUE);
         dynamicByteStore.add(Byte.BYTES);
@@ -140,7 +161,7 @@ public class Main {
         System.out.print(dynamicByteStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicShortStore = new DynamicItemStore<Short>();
+        DynamicStore<?> dynamicShortStore = new DynamicStore<Short>();
         dynamicShortStore.add(Short.MIN_VALUE);
         dynamicShortStore.add(Short.MAX_VALUE);
         dynamicShortStore.add(Short.BYTES);
@@ -148,7 +169,7 @@ public class Main {
         System.out.print(dynamicShortStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicIntegerStore = new DynamicItemStore<Integer>();
+        DynamicStore<?> dynamicIntegerStore = new DynamicStore<Integer>();
         dynamicIntegerStore.add(Integer.MIN_VALUE);
         dynamicIntegerStore.add(Integer.MAX_VALUE);
         dynamicIntegerStore.add(Integer.BYTES);
@@ -156,7 +177,7 @@ public class Main {
         System.out.print(dynamicIntegerStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicLongStore = new DynamicItemStore<Long>();
+        DynamicStore<?> dynamicLongStore = new DynamicStore<Long>();
         dynamicLongStore.add(Long.MIN_VALUE);
         dynamicLongStore.add(Long.MAX_VALUE);
         dynamicLongStore.add(Long.BYTES);
@@ -164,7 +185,7 @@ public class Main {
         System.out.print(dynamicLongStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicFloatStore = new DynamicItemStore<Float>();
+        DynamicStore<?> dynamicFloatStore = new DynamicStore<Float>();
         dynamicFloatStore.add(Float.MIN_VALUE);
         dynamicFloatStore.add(Float.MAX_VALUE);
         dynamicFloatStore.add(Float.BYTES);
@@ -178,7 +199,7 @@ public class Main {
         System.out.print(dynamicFloatStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicDoubleStore = new DynamicItemStore<Double>();
+        DynamicStore<?> dynamicDoubleStore = new DynamicStore<Double>();
         dynamicDoubleStore.add(Double.MIN_VALUE);
         dynamicDoubleStore.add(Double.MAX_VALUE);
         dynamicDoubleStore.add(Double.BYTES);
@@ -192,7 +213,7 @@ public class Main {
         System.out.print(dynamicDoubleStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicCharacterStore = new DynamicItemStore<Character>();
+        DynamicStore<?> dynamicCharacterStore = new DynamicStore<Character>();
         dynamicCharacterStore.add(Character.MAX_HIGH_SURROGATE);
         dynamicCharacterStore.add(Character.MAX_LOW_SURROGATE);
         dynamicCharacterStore.add(Character.MAX_SURROGATE);
@@ -204,13 +225,13 @@ public class Main {
         System.out.print(dynamicCharacterStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicBooleanStore = new DynamicItemStore<Boolean>();
+        DynamicStore<?> dynamicBooleanStore = new DynamicStore<Boolean>();
         dynamicBooleanStore.add(false);
         dynamicBooleanStore.add(true);
         System.out.print(dynamicBooleanStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicStringStore = new DynamicItemStore<String>();
+        DynamicStore<?> dynamicStringStore = new DynamicStore<String>();
         dynamicStringStore.add("Fellow");
         dynamicStringStore.add("Mellow");
         dynamicStringStore.add("Yellow");
@@ -218,7 +239,7 @@ public class Main {
         System.out.print(dynamicStringStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicObjectStore = new DynamicItemStore<Object>();
+        DynamicStore<?> dynamicObjectStore = new DynamicStore<Object>();
         dynamicObjectStore.add(new Thread());
         dynamicObjectStore.add(new Error());
         dynamicObjectStore.add(new Exception());
@@ -228,15 +249,15 @@ public class Main {
 
         System.out.println("--------------------Dynamic sorted item store");
 
-        DynamicItemStore<?> dynamicSortedIntegerStore = new DynamicItemStore<Integer>();
+        DynamicStore<?> dynamicSortedIntegerStore = new DynamicStore<Integer>();
         for (int i = 0; i < 4; i++) {
-            dynamicSortedIntegerStore.add(random.nextInt(10000));
+            dynamicSortedIntegerStore.add(random.nextInt(2000));
         }
         dynamicSortedIntegerStore.sort();
         System.out.print(dynamicSortedIntegerStore);
         System.out.print("\n");
 
-        DynamicItemStore<?> dynamicSortedStringStore = new DynamicItemStore<String>();
+        DynamicStore<?> dynamicSortedStringStore = new DynamicStore<String>();
         dynamicSortedStringStore.add("Fellow");
         dynamicSortedStringStore.add("Mellow");
         dynamicSortedStringStore.add("Yellow");
@@ -245,89 +266,12 @@ public class Main {
         System.out.print(dynamicSortedStringStore);
         System.out.print("\n");
 
-        System.out.println("--------------------Dynamic unique item store");
-        
-        DynamicUniqueItemStore<?> dynamicUniqueIntegerStore = new DynamicUniqueItemStore<Integer>();
-        dynamicUniqueIntegerStore.add(1);
-        dynamicUniqueIntegerStore.add(2);
-        dynamicUniqueIntegerStore.add(1);
-        dynamicUniqueIntegerStore.add(3);
-        System.out.print(dynamicUniqueIntegerStore);
-        System.out.print("\n");
-
-        DynamicUniqueItemStore<?> dynamicUniqueStringStore = new DynamicUniqueItemStore<String>();
-        dynamicUniqueStringStore.add("a");
-        dynamicUniqueStringStore.add("b");
-        dynamicUniqueStringStore.add("a");
-        dynamicUniqueStringStore.add("c");
-        System.out.print(dynamicUniqueStringStore);
-        System.out.print("\n");
-
-        System.out.println("--------------------Dynamic key value store");
-    
-        //DynamicKeyValueStore<?,?> dynamicKeyValueStore = new DynamicKeyValueStore<byte,int>(); //unexpected type
-        //DynamicKeyValueStore<?,?> dynamicKeyValueStore = new DynamicKeyValueStore<String,int>(); //unexpected type
-        //DynamicKeyValueStore<?,?> dynamicKeyValueStore = new DynamicKeyValueStore<String,Object>(); //Legal
-        DynamicKeyValueStore<?,?> dynamicKeyValueStore = new DynamicKeyValueStore<String,Integer>();
-        dynamicKeyValueStore.add("Yukon", 8);
-        dynamicKeyValueStore.add("Bicker", 9);
-        dynamicKeyValueStore.add("Shulz", 7);
-        dynamicKeyValueStore.add("Jems", 3);
-        System.out.print(dynamicKeyValueStore);
-        System.out.print("\n");
-
-        DynamicKeyValueStore<?,?> dynamicKeyValueStoreWithListValue = new DynamicKeyValueStore<Integer,AbstractItemStore>();
-        dynamicKeyValueStoreWithListValue.add(1, new StaticItemStore<Integer>(4));
-        dynamicKeyValueStoreWithListValue.add(2, new DynamicItemStore<Integer>());
-        dynamicKeyValueStoreWithListValue.add(3, new DynamicUniqueItemStore<Integer>());
-        System.out.print(dynamicKeyValueStoreWithListValue);
-        System.out.print("\n");
-
-        System.out.println("--------------------Dynamic sorted key value store");
-
-        DynamicKeyValueStore<?,?> dynamicSortedIntegerKeyValueStore = new DynamicKeyValueStore<Integer,String>();
-        dynamicSortedIntegerKeyValueStore.add(88, "Yukon");
-        dynamicSortedIntegerKeyValueStore.add(832, "Bicker");
-        dynamicSortedIntegerKeyValueStore.add(7, "Shulz");
-        dynamicSortedIntegerKeyValueStore.add(3, "Jems");
-        dynamicSortedIntegerKeyValueStore.sort();
-        System.out.print(dynamicSortedIntegerKeyValueStore);
-        System.out.println("7 -> ".concat(String.valueOf(dynamicSortedIntegerKeyValueStore.get(7))));
-        System.out.print("\n");
-
-        DynamicKeyValueStore<?,?> dynamicSortedStringKeyValueStore = new DynamicKeyValueStore<String,Integer>();
-        dynamicSortedStringKeyValueStore.add("Yukon", 8);
-        dynamicSortedStringKeyValueStore.add("Bicker", 9);
-        dynamicSortedStringKeyValueStore.add("Shulz", 7);
-        dynamicSortedStringKeyValueStore.add("Jems", 3);
-        dynamicSortedStringKeyValueStore.sort();
-        System.out.print(dynamicSortedStringKeyValueStore);
-        System.out.println("Yukon -> ".concat(String.valueOf(dynamicSortedStringKeyValueStore.get("Yukon"))));
-        System.out.print("\n");
-
-        System.out.println("--------------------Static item store replace item");
-
-        StaticItemStore<?> staticReplacedIntegerStore = new StaticItemStore<Integer>(4);
-        System.out.print(staticReplacedIntegerStore);
-        staticReplacedIntegerStore.replaceAll(0);
-        System.out.print(staticReplacedIntegerStore);
-        staticReplacedIntegerStore.add(1);
-        staticReplacedIntegerStore.add(3);
-        staticReplacedIntegerStore.add(9);
-        staticReplacedIntegerStore.add(5);
-        System.out.print(staticReplacedIntegerStore);
-        System.out.print("\n");
-        staticReplacedIntegerStore.replace(1, 7);
-        System.out.print(staticReplacedIntegerStore);
-        System.out.print("\n");
-        System.out.println("Index of 9 = ".concat(String.valueOf(staticReplacedIntegerStore.getIndex(9))));
-        System.out.println("Item at index 3 = ".concat(String.valueOf(staticReplacedIntegerStore.get(3))));
-
         System.out.println("--------------------Dynamic item store replace item");
         
-        DynamicItemStore<?> dynamicReplacedIntegerStore = new DynamicItemStore<Integer>();
+        DynamicStore<?> dynamicReplacedIntegerStore = new DynamicStore<Integer>();
         dynamicReplacedIntegerStore.add(1);
         dynamicReplacedIntegerStore.add(3);
+        //dynamicReplacedIntegerStore.replace(2, 7);
         dynamicReplacedIntegerStore.add(9);
         dynamicReplacedIntegerStore.add(5);
         System.out.print(dynamicReplacedIntegerStore);
@@ -337,7 +281,7 @@ public class Main {
         System.out.print("\n");
 
         System.out.println("--------------------Dynamic item store insert item");
-        DynamicItemStore<?> dynamicInsertedIntegerStore = new DynamicItemStore<Integer>();
+        DynamicStore<?> dynamicInsertedIntegerStore = new DynamicStore<Integer>();
         dynamicInsertedIntegerStore.add(1);
         dynamicInsertedIntegerStore.add(3);
         dynamicInsertedIntegerStore.add(9);
@@ -352,8 +296,76 @@ public class Main {
         System.out.print("\n");
         dynamicInsertedIntegerStore.insert(6, 4);
         System.out.print(dynamicInsertedIntegerStore);
+        //dynamicInsertedIntegerStore.insert(9, 0);
+        //System.out.print(dynamicInsertedIntegerStore);
+        //dynamicInsertedIntegerStore.insert(-1, 6);
+        //System.out.print(dynamicInsertedIntegerStore);
         System.out.print("\n");
         System.out.println("Index of 9 = ".concat(String.valueOf(dynamicInsertedIntegerStore.getIndex(9))));
         System.out.println("Item at index 3 = ".concat(String.valueOf(dynamicInsertedIntegerStore.get(3))));
+
+        System.out.println("--------------------Dynamic unique item store");
+        
+        DynamicUniqueStore<?> dynamicUniqueIntegerStore = new DynamicUniqueStore<Integer>();
+        dynamicUniqueIntegerStore.add(1);
+        dynamicUniqueIntegerStore.add(2);
+        dynamicUniqueIntegerStore.add(1);
+        dynamicUniqueIntegerStore.add(3);
+        System.out.print(dynamicUniqueIntegerStore);
+        System.out.print("\n");
+
+        DynamicUniqueStore<?> dynamicUniqueStringStore = new DynamicUniqueStore<String>();
+        dynamicUniqueStringStore.add("a");
+        dynamicUniqueStringStore.add("b");
+        dynamicUniqueStringStore.add("a");
+        dynamicUniqueStringStore.add("c");
+        System.out.print(dynamicUniqueStringStore);
+        System.out.print("\n");
+
+        System.out.println("--------------------Dynamic key value store");
+    
+        //DynamicMap<?,?> DynamicMap = new DynamicMap<byte,int>(); //unexpected type
+        //DynamicMap<?,?> DynamicMap = new DynamicMap<String,int>(); //unexpected type
+        //DynamicMap<?,?> DynamicMap = new DynamicMap<String,Object>(); //Legal
+        DynamicMap<?,?> DynamicMap = new DynamicMap<String,Integer>();
+        DynamicMap.add("Yukon", 8);
+        DynamicMap.add("Bicker", 9);
+        DynamicMap.add("Shulz", 7);
+        DynamicMap.add("Jems", 3);
+        System.out.print(DynamicMap);
+        System.out.print("\n");
+
+        DynamicMap<?,?> DynamicMapWithListValue = new DynamicMap<Integer,ItemStore>();
+        DynamicMapWithListValue.add(1, new StaticStore<Integer>(4));
+        DynamicMapWithListValue.add(2, new DynamicStore<Integer>());
+        DynamicMapWithListValue.add(3, new DynamicUniqueStore<Integer>());
+        System.out.print(DynamicMapWithListValue);
+        System.out.print("\n");
+
+        System.out.println("--------------------Dynamic sorted key value store");
+
+        DynamicMap<?,?> dynamicSortedIntegerKeyValueStore = new DynamicMap<Integer,String>();
+        dynamicSortedIntegerKeyValueStore.add(88, "Yukon");
+        dynamicSortedIntegerKeyValueStore.add(832, "Bicker");
+        dynamicSortedIntegerKeyValueStore.add(832, "Blitzer");
+        dynamicSortedIntegerKeyValueStore.add(7, "Shulz");
+        dynamicSortedIntegerKeyValueStore.add(17, "Shulz");
+        dynamicSortedIntegerKeyValueStore.add(3, "Jems");
+        dynamicSortedIntegerKeyValueStore.sort();
+        System.out.println(dynamicSortedIntegerKeyValueStore);
+        System.out.println("7 -> ".concat(String.valueOf(dynamicSortedIntegerKeyValueStore.getValue(7))));
+        System.out.println("Blitzer <- ".concat(String.valueOf(dynamicSortedIntegerKeyValueStore.getKey("Blitzer"))));
+        System.out.print("\n");
+
+        DynamicMap<?,?> dynamicSortedStringKeyValueStore = new DynamicMap<String,Integer>();
+        dynamicSortedStringKeyValueStore.add("Yukon", 8);
+        dynamicSortedStringKeyValueStore.add("Bicker", 9);
+        dynamicSortedStringKeyValueStore.add("Shulz", 7);
+        dynamicSortedStringKeyValueStore.add("Jems", 3);
+        dynamicSortedStringKeyValueStore.sort();
+        System.out.println(dynamicSortedStringKeyValueStore);
+        System.out.println("Yukon -> ".concat(String.valueOf(dynamicSortedStringKeyValueStore.getValue("Yukon"))));
+        System.out.println("3 <- ".concat(String.valueOf(dynamicSortedStringKeyValueStore.getKey(3))));
+        System.out.print("\n");
     }
 }
