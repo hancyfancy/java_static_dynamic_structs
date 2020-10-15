@@ -1,7 +1,7 @@
-abstract class AbstractItemStore<T> implements ISortable<T> {
+abstract class ItemStore<T> implements ISortable<T> {
     private int currentIndex;
     private Item<?>[] items;
-    protected AbstractItemStore() {
+    protected ItemStore() {
         this.setCurrentIndex(0);
     }
     protected int getCurrentIndex() {
@@ -31,7 +31,11 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
     protected void replaceAllItems(Item<?> newItem) {
         Item<?>[] items = getItems();
         for (int i = 0; i < items.length; i++) {
-            items[i] = newItem;
+            if (items[i] != null) {
+                items[i] = newItem;
+            } else {
+                throw new Error("Null items cannot be replaced, try adding or inserting instead.");
+            }
         }
         this.setItems(items);
     }
@@ -102,39 +106,34 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         String minString = null;
         int counter = 0;
         int maxLength = -1;
-        if (firstString.length() >= secondString.length()) {
-            maxLength = firstString.length();
-        } else if (secondString.length() > firstString.length()) {
-            maxLength = secondString.length();
-        }
-        for (int i = 0; i < maxLength; i++) {
-            if (((int)firstString.charAt(i)) < ((int)secondString.charAt(i))) {
-                if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
-                    if (firstString.length() > secondString.length()) {
-                        minString = secondString;
-                    } else {
-                        minString = firstString;
-                    }
-                } else {
-                    minString = firstString;
-                }
-                break;
-            } else if (((int)secondString.charAt(i)) < ((int)firstString.charAt(i))) {
-                if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
-                    if (secondString.length() > firstString.length()) {
-                        minString = firstString;
-                    } else {
-                        minString = secondString;
-                    }
-                } else {
-                    minString = secondString;
-                }
-                break;
+        if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
+            int first = Integer.parseInt(firstString);
+            int second = Integer.parseInt(secondString);
+            if (first < second) {
+                minString = firstString;
             }
-            counter++;
-        }
-        if (counter == maxLength-1) {
-            minString = firstString;
+            else if (second <= first) {
+                minString = secondString;
+            }
+        } else {
+            if (firstString.length() >= secondString.length()) {
+                maxLength = firstString.length();
+            } else if (secondString.length() > firstString.length()) {
+                maxLength = secondString.length();
+            }
+            for (int i = 0; i < maxLength; i++) {
+                if (((int)firstString.charAt(i)) < ((int)secondString.charAt(i))) {
+                    minString = firstString;
+                    break;
+                } else if (((int)secondString.charAt(i)) < ((int)firstString.charAt(i))) {
+                    minString = secondString;
+                    break;
+                }
+                counter++;
+            }
+            if (counter == maxLength-1) {
+                minString = firstString;
+            }
         }
         return minString;
     }
@@ -142,39 +141,34 @@ abstract class AbstractItemStore<T> implements ISortable<T> {
         String maxString = null;
         int counter = 0;
         int maxLength = -1;
-        if (firstString.length() >= secondString.length()) {
-            maxLength = firstString.length();
-        } else if (secondString.length() > firstString.length()) {
-            maxLength = secondString.length();
-        }
-        for (int i = 0; i < maxLength; i++) {
-            if (((int)firstString.charAt(i)) > ((int)secondString.charAt(i))) {
-                if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
-                    if (firstString.length() < secondString.length()) {
-                        maxString = secondString;
-                    } else {
-                        maxString = firstString;
-                    }
-                } else {
-                    maxString = firstString;
-                }
-                break;
-            } else if (((int)secondString.charAt(i)) > ((int)firstString.charAt(i))) {
-                if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
-                    if (secondString.length() > firstString.length()) {
-                        maxString = firstString;
-                    } else {
-                        maxString = secondString;
-                    }
-                } else {
-                    maxString = secondString;
-                }
-                break;
+        if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
+            int first = Integer.parseInt(firstString);
+            int second = Integer.parseInt(secondString);
+            if (first > second) {
+                maxString = firstString;
             }
-            counter++;
-        }
-        if (counter == maxLength-1) {
-            maxString = firstString;
+            else if (second >= first) {
+                maxString = secondString;
+            }
+        } else {
+            if (firstString.length() >= secondString.length()) {
+                maxLength = firstString.length();
+            } else if (secondString.length() > firstString.length()) {
+                maxLength = secondString.length();
+            }
+            for (int i = 0; i < maxLength; i++) {
+                if (((int)firstString.charAt(i)) > ((int)secondString.charAt(i))) {
+                    maxString = firstString;
+                    break;
+                } else if (((int)secondString.charAt(i)) > ((int)firstString.charAt(i))) {
+                    maxString = secondString;
+                    break;
+                }
+                counter++;
+            }
+            if (counter == maxLength-1) {
+                maxString = firstString;
+            }
         }
         return maxString;
     }
