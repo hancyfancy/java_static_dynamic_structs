@@ -1,17 +1,16 @@
-public class DynamicUniqueItemStore<T> extends DynamicItemStore<T> {
-    public DynamicUniqueItemStore() {
+public class DynamicUniqueStore<T> extends DynamicStore<T> {
+    public DynamicUniqueStore() {
         super();
     }
-    @Override
     protected void setItem(Item<?> newItem) {
-        if (getIndex(newItem) == -1) {
+        try {
+            super.getIndex(newItem);
+        } catch (Exception ex) {
             Item<?>[] newItems = null;
-            int currentIndex = getCurrentIndex();
-            int nextIndex = currentIndex + 1;
-            Item<?>[] items = getItems();
+            int currentIndex = super.getCurrentIndex();
+            Item<?>[] items = super.getItems();
             int itemsLength = items.length;
-            int nextItemsLength = itemsLength + 1;
-            newItems = new Item[nextItemsLength];
+            newItems = new Item[itemsLength + 1];
             for (int i = 0; i < itemsLength; i++) {
                 Item<?> currentItem = items[i];
                 if (currentItem != null) {
@@ -20,7 +19,7 @@ public class DynamicUniqueItemStore<T> extends DynamicItemStore<T> {
             }
             newItems[currentIndex] = newItem;
             super.setItems(newItems);
-            super.setCurrentIndex(nextIndex);
+            super.setCurrentIndex(currentIndex + 1);
         }
     }
 }
