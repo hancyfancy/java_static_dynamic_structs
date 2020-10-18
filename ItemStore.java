@@ -115,7 +115,7 @@ abstract class ItemStore<T> implements ISortable<T> {
             String[] primeNumbersSplit = primeNumbersAsString.split(",");
             int primeNumbersSplitLength = primeNumbersSplit.length;
             primeNumbers = new int[primeNumbersSplitLength];
-            for (int j = 0; j < primeNumbersSplitLength; j++) {
+            for (int j = 0; j < primeNumbersSplitLength-1; j++) {
                 primeNumbers[j] = Integer.parseInt(primeNumbersSplit[j]);
             }
         }
@@ -127,9 +127,11 @@ abstract class ItemStore<T> implements ISortable<T> {
         int requiredPrime = -1;
         for (int i = primeNumbers.length-1; i > -1; i--) {
             int currentPrime = primeNumbers[i];
-            if (unsortedItemsLength % currentPrime == 0) {
-                requiredPrime = currentPrime;
-                break;
+            if (currentPrime > 0) {
+                if (unsortedItemsLength % currentPrime == 0) {
+                    requiredPrime = currentPrime;
+                    break;
+                }
             }
         }
         return (requiredPrime == -1 ? 1 : requiredPrime);
