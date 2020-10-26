@@ -346,6 +346,13 @@ public class Main {
         System.out.print(DynamicMap);
         System.out.print("\n");
 
+        DynamicMap<?,?> DynamicMapWithListValue = new DynamicMap<Integer,ItemStore>();
+        DynamicMapWithListValue.add(1, new StaticStore<Integer>(4));
+        DynamicMapWithListValue.add(2, new DynamicStore<Integer>());
+        DynamicMapWithListValue.add(3, new DynamicUniqueStore<Integer>());
+        System.out.print(DynamicMapWithListValue);
+        System.out.print("\n");
+
         System.out.println("--------------------Dynamic sorted key value store");
 
         DynamicMap<?,?> dynamicSortedIntegerKeyValueStore = new DynamicMap<Integer,String>();

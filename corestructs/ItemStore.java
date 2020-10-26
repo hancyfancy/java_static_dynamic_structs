@@ -32,7 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package corestructs;
 
-abstract class ItemStore<T> implements ISortable<T> {
+public abstract class ItemStore<T> implements ISortable<T> {
     private int currentIndex;
     private Item<?>[] items;
     protected ItemStore() {
