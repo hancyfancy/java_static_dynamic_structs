@@ -51,18 +51,6 @@ Simple one dimensional and two dimensional data structures.
 
 # Sample output
 ```
---------------------Items
-10
-20
--1
-1
-894.236
--7.5
-c
-false
-Hello
-java.lang.Object@2c7b84de
-
 --------------------Static item store
 [{Index 0: -128}, {Index 1: 127}, {Index 2: 1}, {Index 3: 8}]
 
@@ -82,7 +70,7 @@ java.lang.Object@2c7b84de
 
 [{Index 0: Fellow}, {Index 1: Mellow}, {Index 2: Yellow}, {Index 3: Bellow}]
 
-[{Index 0: Thread[Thread-0,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@4f023edb}]
+[{Index 0: Thread[Thread-0,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@508dec2b}]
 
 --------------------Static item store replace item
 [{Index 0: null}, {Index 1: null}, {Index 2: null}, {Index 3: null}]
@@ -90,6 +78,7 @@ java.lang.Object@2c7b84de
 [{Index 0: 0}, {Index 1: 0}, {Index 2: 0}, {Index 3: 0}]
 [{Index 0: 0}, {Index 1: 7}, {Index 2: 0}, {Index 3: 0}]
 Item at index 3 = 0
+
 --------------------Dynamic item store
 [{Index 0: -128}, {Index 1: 127}, {Index 2: 1}, {Index 3: 8}]
 
@@ -109,10 +98,10 @@ Item at index 3 = 0
 
 [{Index 0: Fellow}, {Index 1: Mellow}, {Index 2: Yellow}, {Index 3: Bellow}]
 
-[{Index 0: Thread[Thread-1,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@85ede7b}]
+[{Index 0: Thread[Thread-1,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@7486b455}]
 
 --------------------Dynamic sorted item store
-[{Index 0: 989}, {Index 1: 1045}, {Index 2: 1793}, {Index 3: 1891}]
+[{Index 0: 533}, {Index 1: 1292}, {Index 2: 1538}, {Index 3: 1756}]
 
 [{Index 0: Bellow}, {Index 1: Fellow}, {Index 2: Mellow}, {Index 3: Yellow}]
 
@@ -132,6 +121,7 @@ Item at index 3 = 0
 
 Index of 9 = 4
 Item at index 3 = 7
+
 --------------------Dynamic unique item store
 [{Index 0: 1}, {Index 1: 2}, {Index 2: 3}]
 
