@@ -1,3 +1,3 @@
 #!/bin/sh
 
-find . -type f -name '*.class' -delete
+find ./lib/ -type f -name '*.jar' -delete

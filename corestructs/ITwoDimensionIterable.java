@@ -30,9 +30,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-interface IOneDimensionStorable<T> {
-    T get(int index);
-    void add(Object toBeAdded);
-    void replace(int index, Object toBeReplaced);
-    void replaceAll(Object toBeReplaced);
+package corestructs;
+
+interface ITwoDimensionIterable<K,V> {
+    int getKeyIndex(Object key);
+    int getValueIndex(Object val);
 }

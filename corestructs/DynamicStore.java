@@ -30,6 +30,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+package corestructs;
+
 import java.lang.reflect.Method;
 
 public class DynamicStore<T> extends ItemStore<T> implements IInsertable<T>, IOneDimensionIterable<T>, IOneDimensionStorable<T> {
