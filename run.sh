@@ -1,3 +1,3 @@
 #!/bin/sh
 
-java Main
+java -classpath ./lib/corestructs.jar ./test/Main.java

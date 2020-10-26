@@ -30,10 +30,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-interface ITwoDimensionStorable<K,V> {
-    K getKeyAtPosition(int index);
-    V getValueAtPosition(int index);
-    K getKey(Object val);
-    V getValue(Object key);
-    void add(Object key, Object value);
+package corestructs;
+
+interface IInsertable<T> {
+    void insert(int index, Object toBeInserted);
 }

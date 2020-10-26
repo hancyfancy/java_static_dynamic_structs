@@ -30,35 +30,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+import corestructs.*;
 import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
         Random random = new Random();
-
-        System.out.println("--------------------Items");
-
-        Item<?> myByte = new Item((byte)10);
-        System.out.println(myByte);
-        Item<?> myShort = new Item((short)20);
-        System.out.println(myShort);
-        Item<?> myInteger = new Item((int)-1);
-        System.out.println(myInteger);
-        Item<?> myLong = new Item((long)1L);
-        System.out.println(myLong);
-        Item<?> myFloat = new Item((float)894.236f);
-        System.out.println(myFloat);
-        Item<?> myDouble = new Item((double)-7.5d);
-        System.out.println(myDouble);
-        Item<?> myChar = new Item((char)'c');
-        System.out.println(myChar);
-        Item<?> myBoolean = new Item((boolean)false);
-        System.out.println(myBoolean);
-        Item<?> myString = new Item((String)"Hello");
-        System.out.println(myString);
-        Item<?> myObject = new Item(new Object());
-        System.out.println(myObject);
-        System.out.print("\n");
 
         System.out.println("--------------------Static item store");
     
@@ -179,6 +156,7 @@ public class Main {
         System.out.print(staticReplacedIntegerStore);
         //System.out.println("Index of 9 = ".concat(String.valueOf(staticReplacedIntegerStore.getIndex(9))));
         System.out.println("Item at index 3 = ".concat(String.valueOf(staticReplacedIntegerStore.get(3))));
+        System.out.print("\n");
 
         System.out.println("--------------------Dynamic item store");
 
@@ -335,6 +313,7 @@ public class Main {
         System.out.print("\n");
         System.out.println("Index of 9 = ".concat(String.valueOf(dynamicInsertedIntegerStore.getIndex(9))));
         System.out.println("Item at index 3 = ".concat(String.valueOf(dynamicInsertedIntegerStore.get(3))));
+        System.out.print("\n");
 
         System.out.println("--------------------Dynamic unique item store");
         
@@ -365,13 +344,6 @@ public class Main {
         DynamicMap.add("Shulz", 7);
         DynamicMap.add("Jems", 3);
         System.out.print(DynamicMap);
-        System.out.print("\n");
-
-        DynamicMap<?,?> DynamicMapWithListValue = new DynamicMap<Integer,ItemStore>();
-        DynamicMapWithListValue.add(1, new StaticStore<Integer>(4));
-        DynamicMapWithListValue.add(2, new DynamicStore<Integer>());
-        DynamicMapWithListValue.add(3, new DynamicUniqueStore<Integer>());
-        System.out.print(DynamicMapWithListValue);
         System.out.print("\n");
 
         System.out.println("--------------------Dynamic sorted key value store");
