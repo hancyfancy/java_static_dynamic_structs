@@ -208,81 +208,49 @@ public abstract class ItemStore<T> implements ISortable<T> {
         }
         return maxString;
     }
-    private int linearSearchMin(Item<?>[] array) {
-        String min = "";
-        for (int j = 0; j < array[0].toString().length(); j++) {
-            min += 'z';
+    private void merge(Item<?>[] sortedDivision, int l, int m, int r) {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+        Item<?>[] left = new Item[n1];
+        Item<?>[] right = new Item[n2];
+        for (int i = 0; i < n1; ++i) {
+            left[i] = sortedDivision[l + i];
         }
-        int minIndex = -1;
-        for (int i = 0; i < array.length; i++) {
-            String current = ((Item<T>)array[i]).toString();
-            if (minString(current, min).equals(current)) {
-                min = current;
-                minIndex = i;
-            }
+        for (int j = 0; j < n2; ++j) {
+            right[j] = sortedDivision[m + 1 + j];
         }
-        return minIndex;
-    }
-    private int linearSearchMax(Item<?>[] array) {
-        String max = "";
-        for (int j = 0; j < array[0].toString().length(); j++) {
-            max += '0';
-        }
-        int maxIndex = -1;
-        for (int j = 0; j < array.length; j++) {
-            String current = ((Item<T>)array[j]).toString();
-            if (maxString(current, max).equals(current)) {
-                max = current;
-                maxIndex = j;
-            }
-        }
-        return maxIndex;
-    }
-    private Item<T>[] removeSortedDivision(Item<?>[] unsortedDivision, int index) {
-        int newUnsortedDivisionLength = unsortedDivision.length - 1;
-        Item<?>[] newUnsortedDivision = new Item[newUnsortedDivisionLength];
-        for (int i = 0; i < index; i++) {
-            newUnsortedDivision[i] = unsortedDivision[i];
-        }
-        for (int i = index+1; i <= newUnsortedDivisionLength; i++) {
-            newUnsortedDivision[i-1] = unsortedDivision[i];
-        }
-        return (Item<T>[])newUnsortedDivision;     
-    }
-    private Item<T>[] multisortFrame(Item<?>[] unsortedDivision, int numberOfDivisions) {
-        Item<?>[] sortedDivision = new Item[numberOfDivisions];
-        int sortedArrayLength = sortedDivision.length;
-        int halfSortedArrayLength = sortedArrayLength/2;
-        int minDivisionIndex = 0;
-        int maxDivisionIndex = numberOfDivisions - 1;
-        if (sortedArrayLength == 1) {
-            sortedDivision[0] = unsortedDivision[0];
-        } else if (sortedArrayLength == 2) {
-            Item<?> firstItem = (Item<T>)unsortedDivision[0];
-            Item<?> secondItem = (Item<T>)unsortedDivision[1];
-            if (minString(firstItem.toString(),secondItem.toString()).equals(firstItem.toString())) {
-                sortedDivision[0] = firstItem;
-                sortedDivision[1] = secondItem;
+        int x = 0, y = 0;
+        int k = l;
+        while (x < n1 && y < n2) {
+            if (maxString(((Item<T>)left[x]).toString(),((Item<T>)right[y]).toString()).equals(((Item<T>)left[x]).toString())) {
+                sortedDivision[k] = right[y];
+                y++;
             } else {
-                sortedDivision[0] = secondItem;
-                sortedDivision[1] = firstItem;
+                sortedDivision[k] = left[x];
+                x++;
             }
-        } else {
-            while ((minDivisionIndex < halfSortedArrayLength) && (maxDivisionIndex > sortedArrayLength-1-halfSortedArrayLength)) {
-                int indexOfMin = linearSearchMin(unsortedDivision);
-                sortedDivision[minDivisionIndex] = unsortedDivision[indexOfMin];
-                minDivisionIndex++;
-                unsortedDivision = removeSortedDivision(unsortedDivision, indexOfMin);
-                int indexOfMax = linearSearchMax(unsortedDivision);
-                sortedDivision[maxDivisionIndex] = unsortedDivision[indexOfMax];
-                maxDivisionIndex--;
-                unsortedDivision = removeSortedDivision(unsortedDivision, indexOfMax);
-            }
-            if (sortedArrayLength % 2 != 0) {
-                sortedDivision[halfSortedArrayLength] = unsortedDivision[0];
-            }
+            k++;
         }
-        return (Item<T>[])sortedDivision;
+        while (x < n1) {
+            sortedDivision[k] = left[x];
+            x++;
+            k++;
+        }
+        while (y < n2) {
+            sortedDivision[k] = right[y];
+            y++;
+            k++;
+        }
+    }
+    private Item<T>[] mergeSort(Item<?>[] unsortedDivision, int l, int r)
+    {
+        if (l < r) {
+            int m = (l + r) / 2;
+            mergeSort(unsortedDivision, l, m);
+            mergeSort(unsortedDivision, m + 1, r);
+            merge(unsortedDivision, l, m, r);
+        }
+        return (Item<T>[])unsortedDivision;
     }
     private Item<T>[] populateUnsortedSubarray(Item<?>[] unsorted, int index, int numberOfDivisions) {
         Item<?>[] unsortedSubarray = new Item[numberOfDivisions];
@@ -299,7 +267,7 @@ public abstract class ItemStore<T> implements ISortable<T> {
         int sortedSubarraysIndex = 0;
         for (int i = 0; i < unsortedLength; i+=numberOfDivisions) {
             Item<?>[] unsortedSubarray = populateUnsortedSubarray(unsorted, i, numberOfDivisions);
-            Item<?>[] sortedSubarray = multisortFrame(unsortedSubarray, numberOfDivisions);
+            Item<?>[] sortedSubarray = mergeSort(unsortedSubarray, 0, unsortedSubarray.length-1);
             sortedSubarrays[sortedSubarraysIndex] = sortedSubarray;
             sortedSubarraysIndex++;
         }
@@ -313,13 +281,13 @@ public abstract class ItemStore<T> implements ISortable<T> {
             for (int i = 0; i < unsortedSortLevel.length; i++) {
                 unsortedSortLevel[i] = sortedSubarrays[i][sortLevelIndex];
             }
-            Item<?>[] sortedSortLevel = multisortFrame(unsortedSortLevel, unsortedSortLevel.length);
+            Item<?>[] sortedSortLevel = mergeSort(unsortedSortLevel, 0, unsortedSortLevel.length-1);
             sortedOrderedSubarrays[sortLevelIndex] = sortedSortLevel;
             sortLevelIndex++;
         }
         return (Item<T>[][])sortedOrderedSubarrays;
     }
-    private Item<T>[] subsort(Item<?>[] firstSortOrderLevel, Item<?>[] secondSortOrderLevel) {
+    private Item<T>[] subMerge(Item<?>[] firstSortOrderLevel, Item<?>[] secondSortOrderLevel) {
         Item<?>[] subsorted = null;
         if (!(firstSortOrderLevel.length > 0)) {
             subsorted = (Item<T>[])secondSortOrderLevel;
@@ -359,10 +327,9 @@ public abstract class ItemStore<T> implements ISortable<T> {
         return (Item<T>[])subsorted;
     }
     private Item<T>[] sortTruncate(Item<?>[][] sortOrder, int numberOfDivisions, int divisor) {
-        int sortedLength = numberOfDivisions * divisor;
         Item<?>[] sorted = new Item[0];
         for (int i = 0; i < sortOrder.length; i++) {
-            sorted = subsort(sorted, (Item<T>[])sortOrder[i]);
+            sorted = subMerge(sorted, (Item<T>[])sortOrder[i]);
         }
         return (Item<T>[])sorted;
     }

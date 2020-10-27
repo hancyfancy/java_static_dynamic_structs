@@ -260,7 +260,7 @@ public class Main {
         System.out.println("--------------------Dynamic sorted item store");
 
         DynamicStore<?> dynamicSortedIntegerStore = new DynamicStore<Integer>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 52; i++) {
             dynamicSortedIntegerStore.add(random.nextInt(2000));
         }
         dynamicSortedIntegerStore.sort();
