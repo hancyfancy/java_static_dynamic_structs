@@ -34,7 +34,7 @@ package corestructs;
 
 import java.lang.reflect.Method;
 
-public class DynamicMap<K,V> implements ISortable<K>, ITwoDimensionIterable<K,V>, ITwoDimensionStorable<K,V> {
+public class DynamicMap<K extends Comparable<K>,V extends Comparable<V>> implements ISortable<K>, ITwoDimensionIterable<K,V>, ITwoDimensionStorable<K,V> {
     private DynamicUniqueStore<?> keys;
     private DynamicStore<?> values;
     public DynamicMap() {

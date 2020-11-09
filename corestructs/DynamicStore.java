@@ -34,7 +34,7 @@ package corestructs;
 
 import java.lang.reflect.Method;
 
-public class DynamicStore<T> extends ItemStore<T> implements IInsertable<T>, IOneDimensionIterable<T>, IOneDimensionStorable<T> {
+public class DynamicStore<T extends Comparable<T>> extends ItemStore<T> implements IInsertable<T>, IOneDimensionIterable<T>, IOneDimensionStorable<T> {
     public DynamicStore() {
         super();
         super.setItems(new Item[]{});
@@ -57,7 +57,7 @@ public class DynamicStore<T> extends ItemStore<T> implements IInsertable<T>, IOn
         return index;
     }
     public int getIndex(Object object) {
-        return getIndex(new Item(object));
+        return getIndex(new Item((Comparable)object));
     }
     private Item<T> getCurrentItem() {
         return (Item<T>)getItems()[getCurrentIndex()];
@@ -79,7 +79,7 @@ public class DynamicStore<T> extends ItemStore<T> implements IInsertable<T>, IOn
         super.setCurrentIndex(currentIndex + 1);
     }
     public void add(Object toBeAdded) {
-        this.setItem(new Item(toBeAdded));
+        this.setItem(new Item((Comparable)toBeAdded));
     }
     private void replaceItem(int index, Item<?> newItem) {
         Item<?>[] items = getItems();
@@ -93,7 +93,7 @@ public class DynamicStore<T> extends ItemStore<T> implements IInsertable<T>, IOn
         super.setItems(items);
     }
     public void replace(int index, Object toBeReplaced) {
-        this.replaceItem(index, new Item(toBeReplaced)); 
+        this.replaceItem(index, new Item((Comparable)toBeReplaced)); 
     }
     private void insertItem(int index, Item<?> newItem) {
         Item<?>[] newItems = null;
@@ -132,6 +132,6 @@ public class DynamicStore<T> extends ItemStore<T> implements IInsertable<T>, IOn
         }
     }
     public void insert(int index, Object toBeInserted) {
-        this.insertItem(index, new Item(toBeInserted));
+        this.insertItem(index, new Item((Comparable)toBeInserted));
     }
 }

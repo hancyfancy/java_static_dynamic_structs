@@ -32,7 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package corestructs;
 
-public abstract class ItemStore<T> implements ISortable<T> {
+public abstract class ItemStore<T extends Comparable<T>> implements ISortable<T> {
     private int currentIndex;
     private Item<?>[] items;
     protected ItemStore() {
@@ -47,6 +47,9 @@ public abstract class ItemStore<T> implements ISortable<T> {
     protected Item<T>[] getItems() {
         return (Item<T>[])this.items;
     }
+    protected void setItems(Item<?>[] newItems) {
+        this.items = newItems;
+    }
     protected Item<T> getItem(int index) {
         return (Item<T>)getItems()[index];
     }
@@ -58,9 +61,6 @@ public abstract class ItemStore<T> implements ISortable<T> {
     }
     public int getLength() {
         return getItems().length;
-    }
-    protected void setItems(Item<?>[] newItems) {
-        this.items = newItems;
     }
     protected void replaceAllItems(Item<?> newItem) {
         Item<?>[] items = getItems();
@@ -74,20 +74,7 @@ public abstract class ItemStore<T> implements ISortable<T> {
         this.setItems(items);
     }
     public void replaceAll(Object toBeReplaced) {
-        this.replaceAllItems(new Item(toBeReplaced)); 
-    }
-    private boolean isNumericString(String stringToBeChecked) {
-        boolean isNumeric = true;
-        if (stringToBeChecked != null && stringToBeChecked.length() > 0) {
-            for (char c : stringToBeChecked.toCharArray()) {
-                if (!Character.isDigit(c)) {
-                    isNumeric = false;
-                }
-            }
-        } else {
-            isNumeric = false;
-        }
-        return isNumeric;
+        this.replaceAllItems(new Item((Comparable)toBeReplaced)); 
     }
     private boolean isPrimeNumber(int num) {
         boolean flag = true;
@@ -138,76 +125,6 @@ public abstract class ItemStore<T> implements ISortable<T> {
         }
         return (requiredPrime == -1 ? 1 : requiredPrime);
     }
-    private String minString(String firstString, String secondString) {
-        String minString = null;
-        int counter = 0;
-        int maxLength = -1;
-        if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
-            int first = Integer.parseInt(firstString);
-            int second = Integer.parseInt(secondString);
-            if (first < second) {
-                minString = firstString;
-            }
-            else if (second <= first) {
-                minString = secondString;
-            }
-        } else {
-            if (firstString.length() >= secondString.length()) {
-                maxLength = firstString.length();
-            } else if (secondString.length() > firstString.length()) {
-                maxLength = secondString.length();
-            }
-            for (int i = 0; i < maxLength; i++) {
-                if (((int)firstString.charAt(i)) < ((int)secondString.charAt(i))) {
-                    minString = firstString;
-                    break;
-                } else if (((int)secondString.charAt(i)) < ((int)firstString.charAt(i))) {
-                    minString = secondString;
-                    break;
-                }
-                counter++;
-            }
-            if (counter == maxLength-1) {
-                minString = firstString;
-            }
-        }
-        return minString;
-    }
-    private String maxString(String firstString, String secondString) {
-        String maxString = null;
-        int counter = 0;
-        int maxLength = -1;
-        if (this.isNumericString(firstString) && this.isNumericString(secondString)) {
-            int first = Integer.parseInt(firstString);
-            int second = Integer.parseInt(secondString);
-            if (first > second) {
-                maxString = firstString;
-            }
-            else if (second >= first) {
-                maxString = secondString;
-            }
-        } else {
-            if (firstString.length() >= secondString.length()) {
-                maxLength = firstString.length();
-            } else if (secondString.length() > firstString.length()) {
-                maxLength = secondString.length();
-            }
-            for (int i = 0; i < maxLength; i++) {
-                if (((int)firstString.charAt(i)) > ((int)secondString.charAt(i))) {
-                    maxString = firstString;
-                    break;
-                } else if (((int)secondString.charAt(i)) > ((int)firstString.charAt(i))) {
-                    maxString = secondString;
-                    break;
-                }
-                counter++;
-            }
-            if (counter == maxLength-1) {
-                maxString = firstString;
-            }
-        }
-        return maxString;
-    }
     private void merge(Item<?>[] sortedDivision, int l, int m, int r) {
         int n1 = m - l + 1;
         int n2 = r - m;
@@ -222,7 +139,7 @@ public abstract class ItemStore<T> implements ISortable<T> {
         int x = 0, y = 0;
         int k = l;
         while (x < n1 && y < n2) {
-            if (maxString(((Item<T>)left[x]).toString(),((Item<T>)right[y]).toString()).equals(((Item<T>)left[x]).toString())) {
+            if (((Item<T>)left[x]).isGreaterThan(((Item<T>)right[y]))) {
                 sortedDivision[k] = right[y];
                 y++;
             } else {
@@ -299,11 +216,11 @@ public abstract class ItemStore<T> implements ISortable<T> {
             int firstSortOrderIndex = 0;
             int secondSortOrderIndex = 0;
             while ((firstSortOrderIndex < firstSortOrderLevel.length) && (secondSortOrderIndex < secondSortOrderLevel.length)) {
-                if (minString(((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toString(),((Item<T>)secondSortOrderLevel[secondSortOrderIndex]).toString()).equals(((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toString())) {
+                if (((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).isLessThan(((Item<T>)secondSortOrderLevel[secondSortOrderIndex]))) {
                     subsorted[subsortedIndex] = (Item<T>)firstSortOrderLevel[firstSortOrderIndex];
                     firstSortOrderIndex++;
                     subsortedIndex++;
-                } else if (maxString(((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toString(),((Item<T>)secondSortOrderLevel[secondSortOrderIndex]).toString()).equals(((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).toString())) {
+                } else if (((Item<T>)firstSortOrderLevel[firstSortOrderIndex]).isGreaterThan(((Item<T>)secondSortOrderLevel[secondSortOrderIndex]))) {
                     subsorted[subsortedIndex] = (Item<T>)secondSortOrderLevel[secondSortOrderIndex];
                     secondSortOrderIndex++;
                     subsortedIndex++;

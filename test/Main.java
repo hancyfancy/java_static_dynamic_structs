@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import corestructs.*;
+import java.io.File;
 import java.util.Random;
 
 public class Main {
@@ -130,12 +131,11 @@ public class Main {
         System.out.print(staticStringStore);
         System.out.print("\n");
 
-        StaticStore<?> staticObjectStore = new StaticStore<Object>(4);
-        staticObjectStore.add(new Thread());
-        staticObjectStore.add(new Error());
-        staticObjectStore.add(new Exception());
-        staticObjectStore.add(new SecurityManager());
-        System.out.print(staticObjectStore);
+        //StaticStore<?> staticComparableStore = new StaticStore<ANY_OBJECT_THAT_IMPLEMENTS_COMPARABLE_INTERFACE>(n);
+        StaticStore<?> staticComparableStore = new StaticStore<File>(2);
+        staticComparableStore.add(new File("./testfileOne.txt"));
+        staticComparableStore.add(new File("./testfileTwo.txt"));
+        System.out.print(staticComparableStore);
         System.out.print("\n");
 
         System.out.println("--------------------Static item store replace item");
@@ -249,18 +249,17 @@ public class Main {
         System.out.print(dynamicStringStore);
         System.out.print("\n");
 
-        DynamicStore<?> dynamicObjectStore = new DynamicStore<Object>();
-        dynamicObjectStore.add(new Thread());
-        dynamicObjectStore.add(new Error());
-        dynamicObjectStore.add(new Exception());
-        dynamicObjectStore.add(new SecurityManager());
-        System.out.print(dynamicObjectStore);
+        //DynamicStore<?> dynamicComparableStore = new DynamicStore<ANY_OBJECT_THAT_IMPLEMENTS_COMPARABLE_INTERFACE>();
+        DynamicStore<?> dynamicComparableStore = new DynamicStore<File>();
+        dynamicComparableStore.add(new File("./testfileOne.txt"));
+        dynamicComparableStore.add(new File("./testfileTwo.txt"));
+        System.out.print(dynamicComparableStore);
         System.out.print("\n");
 
         System.out.println("--------------------Dynamic sorted item store");
 
         DynamicStore<?> dynamicSortedIntegerStore = new DynamicStore<Integer>();
-        for (int i = 0; i < 52; i++) {
+        for (int i = 0; i < 4; i++) {
             dynamicSortedIntegerStore.add(random.nextInt(2000));
         }
         dynamicSortedIntegerStore.sort();
@@ -335,22 +334,21 @@ public class Main {
 
         System.out.println("--------------------Dynamic key value store");
     
-        //DynamicMap<?,?> DynamicMap = new DynamicMap<byte,int>(); //unexpected type
-        //DynamicMap<?,?> DynamicMap = new DynamicMap<String,int>(); //unexpected type
-        //DynamicMap<?,?> DynamicMap = new DynamicMap<String,Object>(); //Legal
-        DynamicMap<?,?> DynamicMap = new DynamicMap<String,Integer>();
-        DynamicMap.add("Yukon", 8);
-        DynamicMap.add("Bicker", 9);
-        DynamicMap.add("Shulz", 7);
-        DynamicMap.add("Jems", 3);
-        System.out.print(DynamicMap);
+        //DynamicMap<?,?> dynamicMap = new DynamicMap<byte,int>(); //unexpected type
+        //DynamicMap<?,?> dynamicMap = new DynamicMap<String,int>(); //unexpected type
+        //DynamicMap<?,?> dynamicMap = new DynamicMap<String,Object>(); //Legal
+        DynamicMap<?,?> dynamicMap = new DynamicMap<String,Integer>();
+        dynamicMap.add("Yukon", 8);
+        dynamicMap.add("Bicker", 9);
+        dynamicMap.add("Shulz", 7);
+        dynamicMap.add("Jems", 3);
+        System.out.print(dynamicMap);
         System.out.print("\n");
 
-        DynamicMap<?,?> DynamicMapWithListValue = new DynamicMap<Integer,ItemStore>();
-        DynamicMapWithListValue.add(1, new StaticStore<Integer>(4));
-        DynamicMapWithListValue.add(2, new DynamicStore<Integer>());
-        DynamicMapWithListValue.add(3, new DynamicUniqueStore<Integer>());
-        System.out.print(DynamicMapWithListValue);
+        DynamicMap<?,?> dynamicMapWithFileValue = new DynamicMap<Integer,File>();
+        dynamicMapWithFileValue.add(1, new File("./testfileOne.txt"));
+        dynamicMapWithFileValue.add(2, new File("./testfileTwo.txt"));
+        System.out.print(dynamicMapWithFileValue);
         System.out.print("\n");
 
         System.out.println("--------------------Dynamic sorted key value store");

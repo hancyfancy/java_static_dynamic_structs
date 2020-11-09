@@ -34,7 +34,7 @@ package corestructs;
 
 import java.lang.reflect.Method;
 
-public class StaticStore<T> extends ItemStore<T> implements IOneDimensionIterable<T>, IOneDimensionStorable<T> {
+public class StaticStore<T extends Comparable<T>> extends ItemStore<T> implements IOneDimensionIterable<T>, IOneDimensionStorable<T> {
     private int length;
     public StaticStore(int length) {
         super();
@@ -61,7 +61,7 @@ public class StaticStore<T> extends ItemStore<T> implements IOneDimensionIterabl
         return index;
     }
     public int getIndex(Object object) {
-        return getIndex(new Item(object));
+        return getIndex(new Item((Comparable)object));
     }
     public int getLength() {
         return this.length;
@@ -97,7 +97,7 @@ public class StaticStore<T> extends ItemStore<T> implements IOneDimensionIterabl
         }
     }
     public void add(Object toBeAdded) {
-        this.setItem(new Item(toBeAdded));
+        this.setItem(new Item((Comparable)toBeAdded));
     }
     private void replaceItem(int index, Item<?> newItem) {
         if (index < getLength()) {
@@ -113,6 +113,6 @@ public class StaticStore<T> extends ItemStore<T> implements IOneDimensionIterabl
         }
     }
     public void replace(int index, Object toBeReplaced) {
-        this.replaceItem(index, new Item(toBeReplaced)); 
+        this.replaceItem(index, new Item((Comparable)toBeReplaced)); 
     }
 }

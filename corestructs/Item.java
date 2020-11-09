@@ -32,7 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package corestructs;
 
-class Item<T> {
+class Item<T extends Comparable<T>> implements Comparable<Item<T>>, IComparable<T> {
     private T content;
     public Item(T newContent) {
         this.setContent(newContent);
@@ -58,5 +58,23 @@ class Item<T> {
     }
     public Object toObject() {
         return (Object)getContent();
+    }
+    public int compareTo(Item<T> other) {
+        return getContent().compareTo(other.getContent());
+    }
+    public boolean isLessThan(Item<T> rhs) {
+        return compareTo(rhs) < 0;
+    }
+    public boolean isEqualTo(Item<T> rhs) {
+        return compareTo(rhs) == 0;
+    }
+    public boolean isGreaterThan(Item<T> rhs) {
+        return compareTo(rhs) > 0;
+    }
+    public boolean isLessThanOrEqualTo(Item<T> rhs) {
+        return isLessThan(rhs) || isEqualTo(rhs);
+    }
+    public boolean isGreaterThanOrEqualTo(Item<T> rhs) {
+        return isGreaterThan(rhs) || isEqualTo(rhs);
     }
 }
