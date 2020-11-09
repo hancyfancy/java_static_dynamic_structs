@@ -70,7 +70,7 @@ Simple one dimensional and two dimensional data structures.
 
 [{Index 0: Fellow}, {Index 1: Mellow}, {Index 2: Yellow}, {Index 3: Bellow}]
 
-[{Index 0: Thread[Thread-0,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@508dec2b}]
+[{Index 0: ./testfileOne.txt}, {Index 1: ./testfileTwo.txt}]
 
 --------------------Static item store replace item
 [{Index 0: null}, {Index 1: null}, {Index 2: null}, {Index 3: null}]
@@ -98,10 +98,10 @@ Item at index 3 = 0
 
 [{Index 0: Fellow}, {Index 1: Mellow}, {Index 2: Yellow}, {Index 3: Bellow}]
 
-[{Index 0: Thread[Thread-1,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@7486b455}]
+[{Index 0: ./testfileOne.txt}, {Index 1: ./testfileTwo.txt}]
 
 --------------------Dynamic sorted item store
-[{Index 0: 533}, {Index 1: 1292}, {Index 2: 1538}, {Index 3: 1756}]
+[{Index 0: 938}, {Index 1: 1551}, {Index 2: 1555}, {Index 3: 1911}]
 
 [{Index 0: Bellow}, {Index 1: Fellow}, {Index 2: Mellow}, {Index 3: Yellow}]
 
@@ -133,12 +133,8 @@ Index 1: Key -> Bicker, Value -> 9
 Index 2: Key -> Shulz, Value -> 7
 Index 3: Key -> Jems, Value -> 3
 
-Index 0: Key -> 1, Value -> [{Index 0: null}, {Index 1: null}, {Index 2: null}, {Index 3: null}]
-
-Index 1: Key -> 2, Value -> []
-
-Index 2: Key -> 3, Value -> []
-
+Index 0: Key -> 1, Value -> ./testfileOne.txt
+Index 1: Key -> 2, Value -> ./testfileTwo.txt
 
 --------------------Dynamic sorted key value store
 Index 0: Key -> 3, Value -> Jems
