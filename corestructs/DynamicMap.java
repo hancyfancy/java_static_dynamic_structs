@@ -34,23 +34,23 @@ package corestructs;
 
 import java.lang.reflect.Method;
 
-public class DynamicMap<K extends Comparable<K>,V extends Comparable<V>> implements ISortable<K>, ITwoDimensionIterable<K,V>, ITwoDimensionStorable<K,V> {
+public class DynamicMap<K extends Comparable<K>,V extends Comparable<V>> implements ITwoDimensionIterable<K,V>, ITwoDimensionStorable<K,V> {
     private DynamicUniqueStore<?> keys;
     private DynamicStore<?> values;
     public DynamicMap() {
         this.setKeys(new DynamicUniqueStore<K>());
         this.setValues(new DynamicStore<V>());
     }
-    private DynamicUniqueStore<K> getKeys() {
+    protected DynamicUniqueStore<K> getKeys() {
         return (DynamicUniqueStore<K>)this.keys;
     }
-    private void setKeys(DynamicUniqueStore<?> newKeys) {
+    protected void setKeys(DynamicUniqueStore<?> newKeys) {
         this.keys = newKeys;
     }
-    private DynamicStore<V> getValues() {
+    protected DynamicStore<V> getValues() {
         return (DynamicStore<V>)this.values;
     }
-    private void setValues(DynamicStore<?> newValues) {
+    protected void setValues(DynamicStore<?> newValues) {
         this.values = newValues;
     }
     public int getLength() {
@@ -114,25 +114,6 @@ public class DynamicMap<K extends Comparable<K>,V extends Comparable<V>> impleme
                 getValues().add(value);
             }
         }
-    }
-    public void sort() {
-        DynamicUniqueStore<?> originalKeys = new DynamicUniqueStore<K>();
-        DynamicUniqueStore<?> keys = getKeys();
-        for (int i = 0; i < getLength(); i++) {
-            originalKeys.add(keys.get(i));
-        }
-        keys.sort();
-        int[] sortedIndices = new int[getLength()];
-        for (int i = 0; i < getLength(); i++) {
-            sortedIndices[i] = originalKeys.getIndex(keys.get(i));
-        }
-        DynamicStore<?> sortedValues = new DynamicStore<V>();
-        DynamicStore<?> values = getValues();
-        for (int j = 0; j < sortedIndices.length; j++) {
-            sortedValues.add(values.get(sortedIndices[j]));
-        }
-        this.setKeys(keys);
-        this.setValues(sortedValues);
     }
     public String toString() {
         String output = "";
