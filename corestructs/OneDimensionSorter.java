@@ -34,10 +34,10 @@ package corestructs;
 
 import java.util.concurrent.ForkJoinPool;
 
-public class OneDimensionalSorter<T extends Comparable<T>> implements IOneDimensionSortable<T> {
+public class OneDimensionSorter<T extends Comparable<T>> implements IOneDimensionSortable<T> {
     private ItemStore<?> store;
     private ItemForkerJoiner<?> forkerJoiner;
-    public OneDimensionalSorter(ItemStore<?> newStore) {
+    public OneDimensionSorter(ItemStore<?> newStore) {
         this.setStore(newStore);
         this.setForkerJoiner(new ItemForkerJoiner<T>(1, getStore().getItems(), new Item[getStore().getLength()], Runtime.getRuntime().availableProcessors()));
     }

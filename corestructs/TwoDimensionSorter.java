@@ -34,10 +34,10 @@ package corestructs;
 
 import java.util.concurrent.ForkJoinPool;
 
-public class TwoDimensionalSorter<K extends Comparable<K>,V extends Comparable<V>> implements ITwoDimensionSortable<K,V> {    
+public class TwoDimensionSorter<K extends Comparable<K>,V extends Comparable<V>> implements ITwoDimensionSortable<K,V> {    
     private DynamicMap<?,?> map;
     private ItemForkerJoiner<?> forkerJoiner;
-    public TwoDimensionalSorter(DynamicMap<?,?> newMap) {
+    public TwoDimensionSorter(DynamicMap<?,?> newMap) {
         this.setMap(newMap);
     }
     protected DynamicMap<K,V> getMap() {

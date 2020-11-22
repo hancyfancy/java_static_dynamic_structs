@@ -262,7 +262,7 @@ public class Main {
         for (int i = 0; i < 10; i++) {
             dynamicSortedIntegerStore.add(random.nextInt(2000));
         }
-        OneDimensionalSorter<?> integerSorter = new OneDimensionalSorter<Integer>(dynamicSortedIntegerStore);
+        OneDimensionSorter<?> integerSorter = new OneDimensionSorter<Integer>(dynamicSortedIntegerStore);
         integerSorter.sort();
         System.out.print(dynamicSortedIntegerStore);
         System.out.print("\n");
@@ -272,7 +272,7 @@ public class Main {
         dynamicSortedStringStore.add("Mellow");
         dynamicSortedStringStore.add("Yellow");
         dynamicSortedStringStore.add("Bellow");
-        OneDimensionalSorter<?> stringSorter = new OneDimensionalSorter<String>(dynamicSortedStringStore);
+        OneDimensionSorter<?> stringSorter = new OneDimensionSorter<String>(dynamicSortedStringStore);
         stringSorter.sort();
         System.out.print(dynamicSortedStringStore);
         System.out.print("\n");
@@ -362,7 +362,7 @@ public class Main {
         dynamicSortedIntegerKeyValueStore.add(7, "Shulz");
         dynamicSortedIntegerKeyValueStore.add(17, "Shulz");
         dynamicSortedIntegerKeyValueStore.add(3, "Jems");
-        TwoDimensionalSorter<?,?> integerStringSorter = new TwoDimensionalSorter<Integer,String>(dynamicSortedIntegerKeyValueStore);
+        TwoDimensionSorter<?,?> integerStringSorter = new TwoDimensionSorter<Integer,String>(dynamicSortedIntegerKeyValueStore);
         integerStringSorter.sort(TwoDimensionConstants.KEY);
         System.out.println(dynamicSortedIntegerKeyValueStore);
         System.out.println("7 -> ".concat(String.valueOf(dynamicSortedIntegerKeyValueStore.getValue(7))));
@@ -374,7 +374,7 @@ public class Main {
         dynamicSortedStringKeyValueStore.add("Bicker", 9);
         dynamicSortedStringKeyValueStore.add("Shulz", 7);
         dynamicSortedStringKeyValueStore.add("Jems", 3);
-        TwoDimensionalSorter<?,?> stringIntegerSorter = new TwoDimensionalSorter<String,Integer>(dynamicSortedStringKeyValueStore);
+        TwoDimensionSorter<?,?> stringIntegerSorter = new TwoDimensionSorter<String,Integer>(dynamicSortedStringKeyValueStore);
         stringIntegerSorter.sort(TwoDimensionConstants.VALUE);
         System.out.println(dynamicSortedStringKeyValueStore);
         System.out.println("Yukon -> ".concat(String.valueOf(dynamicSortedStringKeyValueStore.getValue("Yukon"))));
