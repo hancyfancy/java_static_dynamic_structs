@@ -98,19 +98,48 @@ public class TwoDimensionSorter<K extends Comparable<K>,V extends Comparable<V>>
     }
     public void parallelSort(TwoDimensionConstants by) {
         DynamicMap<?,?> map = getMap();
+        DynamicUniqueStore<?> keys = map.getKeys();
+        DynamicStore<?> values = map.getValues();
+        int[] sortedIndices = new int[map.getLength()];
+        DynamicUniqueStore<?> originalKeys = null;
+        DynamicStore<?> originalValues = null;
         ItemForkerJoiner<?> fj = null;
         if (by == TwoDimensionConstants.KEY) {
-            fj = new ItemForkerJoiner<K>(1, map.getKeys().getItems(), new Item[map.getLength()], Runtime.getRuntime().availableProcessors());
+            originalKeys = new DynamicUniqueStore<K>();
+            for (int i = 0; i < map.getLength(); i++) {
+                originalKeys.add(keys.get(i));
+            }
+            fj = new ItemForkerJoiner<K>(1, keys.getItems(), new Item[map.getLength()], Runtime.getRuntime().availableProcessors());
         } else if (by == TwoDimensionConstants.VALUE) {
-            fj = new ItemForkerJoiner<V>(1, map.getValues().getItems(), new Item[map.getLength()], Runtime.getRuntime().availableProcessors());
+            originalValues = new DynamicStore<V>();
+            for (int i = 0; i < map.getLength(); i++) {
+                originalValues.add(values.get(i));
+            }
+            fj = new ItemForkerJoiner<V>(1, values.getItems(), new Item[map.getLength()], Runtime.getRuntime().availableProcessors());
         }
         this.setForkerJoiner(fj);
         ForkJoinPool pool = new ForkJoinPool();
         pool.invoke(fj);
-        if (by == TwoDimensionConstants.KEY) {
-            map.getKeys().setItems(fj.getArray());
+        if (by == TwoDimensionConstants.KEY) {            
+            keys.setItems(fj.getArray());
+            for (int i = 0; i < map.getLength(); i++) {
+                sortedIndices[i] = originalKeys.getIndex(keys.get(i));
+            }
+            DynamicStore<?> sortedValues = new DynamicStore<V>();
+            for (int j = 0; j < sortedIndices.length; j++) {
+                sortedValues.add(values.get(sortedIndices[j]));
+            }
+            map.setValues(sortedValues);
         } else if (by == TwoDimensionConstants.VALUE) {
-            map.getValues().setItems(fj.getArray());
+            values.setItems(fj.getArray());
+            for (int i = 0; i < map.getLength(); i++) {
+                sortedIndices[i] = originalValues.getIndex(values.get(i));
+            }
+            DynamicUniqueStore<?> sortedKeys = new DynamicUniqueStore<K>();
+            for (int j = 0; j < sortedIndices.length; j++) {
+                sortedKeys.add(keys.get(sortedIndices[j]));
+            }
+            map.setKeys(sortedKeys);
         }
     }
 }
