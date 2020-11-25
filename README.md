@@ -64,13 +64,13 @@ Simple one dimensional and two dimensional data structures.
 
 [{Index 0: 4.9E-324}, {Index 1: 1.7976931348623157E308}, {Index 2: 8}, {Index 3: 64}, {Index 4: -1022}, {Index 5: 1023}, {Index 6: -Infinity}, {Index 7: Infinity}, {Index 8: 2.2250738585072014E-308}, {Index 9: NaN}]
 
-[{Index 0: ?}, {Index 1: ?}, {Index 2: ?}, {Index 3: ￿}, {Index 4: ?}, {Index 5: ?}, {Index 6: ?}, {Index 7: }]
+[{Index 0: ?}, {Index 1: ?}, {Index 2: ?}, {Index 3: �}, {Index 4: ?}, {Index 5: ?}, {Index 6: ?}, {Index 7: }]
 
 [{Index 0: false}, {Index 1: true}]
 
 [{Index 0: Fellow}, {Index 1: Mellow}, {Index 2: Yellow}, {Index 3: Bellow}]
 
-[{Index 0: Thread[Thread-0,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@508dec2b}]
+[{Index 0: ./testfileOne.txt}, {Index 1: ./testfileTwo.txt}]
 
 --------------------Static item store replace item
 [{Index 0: null}, {Index 1: null}, {Index 2: null}, {Index 3: null}]
@@ -92,16 +92,16 @@ Item at index 3 = 0
 
 [{Index 0: 4.9E-324}, {Index 1: 1.7976931348623157E308}, {Index 2: 8}, {Index 3: 64}, {Index 4: -1022}, {Index 5: 1023}, {Index 6: -Infinity}, {Index 7: Infinity}, {Index 8: 2.2250738585072014E-308}, {Index 9: NaN}]
 
-[{Index 0: ?}, {Index 1: ?}, {Index 2: ?}, {Index 3: ￿}, {Index 4: ?}, {Index 5: ?}, {Index 6: ?}, {Index 7: }]
+[{Index 0: ?}, {Index 1: ?}, {Index 2: ?}, {Index 3: �}, {Index 4: ?}, {Index 5: ?}, {Index 6: ?}, {Index 7: }]
 
 [{Index 0: false}, {Index 1: true}]
 
 [{Index 0: Fellow}, {Index 1: Mellow}, {Index 2: Yellow}, {Index 3: Bellow}]
 
-[{Index 0: Thread[Thread-1,5,main]}, {Index 1: java.lang.Error}, {Index 2: java.lang.Exception}, {Index 3: java.lang.SecurityManager@7486b455}]
+[{Index 0: ./testfileOne.txt}, {Index 1: ./testfileTwo.txt}]
 
 --------------------Dynamic sorted item store
-[{Index 0: 533}, {Index 1: 1292}, {Index 2: 1538}, {Index 3: 1756}]
+[{Index 0: 332}, {Index 1: 702}, {Index 2: 810}, {Index 3: 828}, {Index 4: 992}, {Index 5: 1257}, {Index 6: 1658}, {Index 7: 1724}, {Index 8: 1770}, {Index 9: 1798}]
 
 [{Index 0: Bellow}, {Index 1: Fellow}, {Index 2: Mellow}, {Index 3: Yellow}]
 
@@ -133,12 +133,8 @@ Index 1: Key -> Bicker, Value -> 9
 Index 2: Key -> Shulz, Value -> 7
 Index 3: Key -> Jems, Value -> 3
 
-Index 0: Key -> 1, Value -> [{Index 0: null}, {Index 1: null}, {Index 2: null}, {Index 3: null}]
-
-Index 1: Key -> 2, Value -> []
-
-Index 2: Key -> 3, Value -> []
-
+Index 0: Key -> 1, Value -> ./testfileOne.txt
+Index 1: Key -> 2, Value -> ./testfileTwo.txt
 
 --------------------Dynamic sorted key value store
 Index 0: Key -> 3, Value -> Jems
@@ -150,10 +146,10 @@ Index 4: Key -> 832, Value -> Blitzer
 7 -> Shulz
 Blitzer <- 832
 
-Index 0: Key -> Bicker, Value -> 9
-Index 1: Key -> Jems, Value -> 3
-Index 2: Key -> Shulz, Value -> 7
-Index 3: Key -> Yukon, Value -> 8
+Index 0: Key -> Jems, Value -> 3
+Index 1: Key -> Shulz, Value -> 7
+Index 2: Key -> Yukon, Value -> 8
+Index 3: Key -> Bicker, Value -> 9
 
 Yukon -> 8
 3 <- Jems
