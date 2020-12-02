@@ -43,7 +43,7 @@ public class DynamicStore<T extends Comparable<T>> extends ItemStore<T> implemen
         int index = -1;
         Item<?>[] items = getItems();
         for (int i = 0; i < items.length; i++) {
-            if (items[i].equals(item)) {
+            if (items[i].equals(item) || items[i].toString().equals(item.toString())) {
                 index = i;
                 break;
             }

@@ -47,7 +47,7 @@ public class StaticStore<T extends Comparable<T>> extends ItemStore<T> implement
         int index = -1;
         Item<?>[] items = getItems();
         for (int i = 0; i < getLength(); i++) {
-            if (items[i].equals(item)) {
+            if (items[i].equals(item) || items[i].toString().equals(item.toString())) {
                 index = i;
                 break;
             }
